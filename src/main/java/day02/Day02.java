@@ -24,7 +24,7 @@ public class Day02 {
     }
 
     public static void main(String[] args) {
-        new Solution(2, Day02::partOne, Day02::partTwo).run();
+        new Solution<>(2, Day02::partOne, Day02::partTwo).run();
     }
 
 }

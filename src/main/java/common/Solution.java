@@ -1,12 +1,6 @@
 package common;
 
-import java.util.function.Function;
-
-public record Solution(int day, common.Solution.Part<?> partOne, common.Solution.Part<?> partTwo) {
-
-    @FunctionalInterface
-    public interface Part<T> extends Function<Input, T> {
-    }
+public record Solution<T, U>(int day, Part<T> partOne, Part<U> partTwo) {
 
     public void run() {
         System.out.printf("Solution for day %02d%n", day);
@@ -16,14 +10,17 @@ public record Solution(int day, common.Solution.Part<?> partOne, common.Solution
 
     private void run(Part<?> part, int number) {
         var input = new Input(day);
+        var timer = new Timer();
+        timer.start();
         var result = part.apply(input);
+        var time = timer.stop();
         var representation = switch (result) {
             case String s -> s;
             case Long l -> Long.toString(l);
             case Integer i -> Integer.toString(i);
             default -> result.toString();
         };
-        System.out.printf("\tPart %d: %s%n", number, representation);
+        System.out.printf("\tPart %d (time: %dms): %s%n", number, time, representation);
     }
 
 }
