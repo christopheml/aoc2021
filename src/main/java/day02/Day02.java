@@ -1,11 +1,9 @@
-package day01;
+package day02;
 
 import common.Input;
 import common.ListOps;
 import common.Point;
 import common.Solution;
-import day02.Command;
-import day02.SubmarinePosition;
 
 import java.util.List;
 
