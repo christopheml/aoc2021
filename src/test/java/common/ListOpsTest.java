@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ListOpsTest {
 
-
     @Test
     void grouping_shortest_list() {
         var sample = List.of(1, 2);
@@ -23,6 +22,13 @@ class ListOpsTest {
                 List.of(4, 9),
                 List.of(9, 10)
         );
+    }
+
+    @Test
+    public void foldLeft() {
+        var sample = List.of("Hello", "Bob", "Long word");
+        var count = ListOps.foldLeft(sample, 0, (acc, element) -> acc + element.length());
+        assertThat(count).isEqualTo(17);
     }
 
 }

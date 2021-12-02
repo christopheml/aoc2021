@@ -1,6 +1,7 @@
 package day01;
 
 import common.Input;
+import common.ListOps;
 import common.Point;
 import common.Solution;
 import day02.Command;
@@ -15,14 +16,13 @@ public class Day02 {
     }
 
     public static Integer partOne(Input input) {
-        var position = commands(input).stream().map(Command::toPoint).reduce(Point.ORIGIN, Point::add);
-        return position.x() * position.y();
+        var finalPosition = ListOps.foldLeft(commands(input), Point.ORIGIN, (position, command) -> command.update(position));
+        return finalPosition.x() * finalPosition.y();
     }
 
     public static Integer partTwo(Input input) {
-        var position = commands(input).stream().map(Command::toSubmarinePosition)
-                .reduce(SubmarinePosition.ORIGIN, SubmarinePosition::combine);
-        return position.x() * position.depth();
+        var finalPosition = ListOps.foldLeft(commands(input), SubmarinePosition.ORIGIN, (position, command) -> command.update(position));
+        return finalPosition.x() * finalPosition.depth();
     }
 
     public static void main(String[] args) {

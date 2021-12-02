@@ -6,8 +6,8 @@ import static java.lang.Integer.parseInt;
 
 public sealed interface Command permits Down, Forward, Up {
 
-    Point toPoint();
-    SubmarinePosition toSubmarinePosition();
+    Point update(Point current);
+    SubmarinePosition update(SubmarinePosition current);
 
     static Command fromString(String text) {
         var parts = text.split(" ");

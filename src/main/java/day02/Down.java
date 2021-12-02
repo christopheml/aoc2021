@@ -3,13 +3,17 @@ package day02;
 import common.Point;
 
 public record Down(int depth) implements Command {
+
     @Override
-    public Point toPoint() {
-        return new Point(0, depth);
+    public Point update(Point current) {
+        return new Point(current.x(), current.y() + depth);
     }
 
     @Override
-    public SubmarinePosition toSubmarinePosition() {
-        return new SubmarinePosition(depth, 0, 0);
+    public SubmarinePosition update(SubmarinePosition current) {
+        return new SubmarinePosition(current.aim() + depth,
+                current.x(),
+                current.depth());
     }
+
 }
