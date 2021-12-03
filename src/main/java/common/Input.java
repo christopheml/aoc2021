@@ -38,4 +38,8 @@ public class Input {
         return asStreamOfLines().map(transformation).toList();
     }
 
+    public List<String> asList() {
+        return asList(Function.identity());
+    }
+
 }
