@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -40,6 +41,22 @@ public class Input {
 
     public List<String> asList() {
         return asList(Function.identity());
+    }
+
+    public List<List<String>> asGroups() {
+        var groups = new ArrayList<List<String>>();
+        var currentGroup = new ArrayList<String>();
+        var lines = asList();
+        for (var line : asList()) {
+            if ("".equals(line)) {
+                groups.add(currentGroup);
+                currentGroup = new ArrayList<>();
+            } else {
+                currentGroup.add(line);
+            }
+        }
+        if (!currentGroup.isEmpty()) groups.add(currentGroup);
+        return groups;
     }
 
 }
