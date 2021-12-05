@@ -1,30 +1,30 @@
 package day02;
 
-import common.Input;
-import common.ListOps;
+import common.runners.Input;
+import common.collections.ListOps;
 import common.Point;
-import common.Solution;
+import common.runners.Solution;
 
 import java.util.List;
 
-public class Day02 {
+public class Day02 extends Solution<Integer> {
 
-    private static List<Command> commands(Input input) {
+    public Day02() {
+        super(2021, 2);
+    }
+
+    private List<Command> commands(Input input) {
         return input.asList(Command::fromString);
     }
 
-    public static Integer partOne(Input input) {
+    public Integer partOne(Input input) {
         var finalPosition = ListOps.foldLeft(commands(input), Point.ORIGIN, (position, command) -> command.update(position));
         return finalPosition.x() * finalPosition.y();
     }
 
-    public static Integer partTwo(Input input) {
+    public Integer partTwo(Input input) {
         var finalPosition = ListOps.foldLeft(commands(input), SubmarinePosition.ORIGIN, (position, command) -> command.update(position));
         return finalPosition.x() * finalPosition.depth();
-    }
-
-    public static void main(String[] args) {
-        new Solution<>(2, Day02::partOne, Day02::partTwo).run();
     }
 
 }

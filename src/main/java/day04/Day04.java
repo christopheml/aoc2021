@@ -1,14 +1,18 @@
 package day04;
 
-import common.Input;
-import common.Solution;
+import common.runners.Input;
+import common.runners.Solution;
 import common.StringOps;
 
 import java.util.ArrayList;
 
-public class Day04 {
+public class Day04 extends Solution<Integer> {
 
-    public static Integer partOne(Input input) {
+    public Day04() {
+        super(2021, 4);
+    }
+
+    public Integer partOne(Input input) {
         var groups = input.asGroups();
 
         var draws = StringOps.asList(groups.get(0).get(0), ",", Integer::valueOf);
@@ -27,7 +31,7 @@ public class Day04 {
         return 0;
     }
 
-    public static Integer partTwo(Input input) {
+    public Integer partTwo(Input input) {
         var groups = input.asGroups();
 
         var draws = StringOps.asList(groups.get(0).get(0), ",", Integer::valueOf);
@@ -49,10 +53,6 @@ public class Day04 {
         }
 
         return lastWinner.sumOfUnmarkedNumbers() * lastWinningDraw;
-    }
-
-    public static void main(String[] args) {
-        new Solution<>(4, Day04::partOne, Day04::partTwo).run();
     }
 
 }

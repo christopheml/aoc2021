@@ -1,4 +1,6 @@
-package common;
+package common.runners;
+
+import common.ThrowingFunction;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

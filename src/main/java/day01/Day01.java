@@ -1,12 +1,17 @@
 package day01;
 
-import common.Input;
-import common.ListOps;
-import common.Solution;
+import common.runners.Input;
+import common.collections.ListOps;
+import common.runners.Solution;
 
 import java.util.List;
 
-public class Day01 {
+public class Day01 extends Solution<Long> {
+
+    public Day01() {
+        super(2021, 1);
+    }
+
 
     private static long countIncreases(List<Integer> values) {
         return ListOps.grouping(values, 2)
@@ -15,20 +20,16 @@ public class Day01 {
                 .count();
     }
 
-    public static Long partOne(Input input) {
+    public Long partOne(Input input) {
         return countIncreases(input.asList(Integer::valueOf));
     }
 
-    public static Long partTwo(Input input) {
+    public Long partTwo(Input input) {
         var windows = ListOps.grouping(input.asList(Integer::valueOf), 3)
                 .stream()
                 .map(ListOps::sum)
                 .toList();
         return countIncreases(windows);
-    }
-
-    public static void main(String[] args) {
-        new Solution<>(1, Day01::partOne, Day01::partTwo).run();
     }
 
 }

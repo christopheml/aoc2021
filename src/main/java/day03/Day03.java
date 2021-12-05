@@ -1,9 +1,9 @@
-package day3;
+package day03;
 
-import common.ArrayOps;
+import common.collections.ArrayOps;
 import common.BinaryString;
-import common.Input;
-import common.Solution;
+import common.runners.Input;
+import common.runners.Solution;
 
 import java.util.List;
 import java.util.Map;
@@ -11,10 +11,14 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Day03 {
+public class Day03 extends Solution<Integer> {
+
+    public Day03() {
+        super(2021, 3);
+    }
 
     // This sums the amount of 1's in every position
-    private static int[] collectFrequencies(List<BinaryString> numbers) {
+    private int[] collectFrequencies(List<BinaryString> numbers) {
         var frequencies = new int[12];
         for (var number : numbers) {
             ArrayOps.apply(frequencies, number.toArray(), Integer::sum);
@@ -22,7 +26,7 @@ public class Day03 {
         return frequencies;
     }
 
-    public static Integer partOne(Input input) {
+    public Integer partOne(Input input) {
         var inputs = input.asList(BinaryString::new);
         var frequencies = collectFrequencies(inputs);
         var gamma = new BinaryString(frequencies, f -> f >= inputs.size() / 2);
@@ -31,39 +35,37 @@ public class Day03 {
         return gamma.toInteger() * epsilon.toInteger();
     }
 
-    private static Map<Character, List<Character>> occurrences(List<BinaryString> numbers, int position) {
+    private Map<Character, List<Character>> occurrences(List<BinaryString> numbers, int position) {
         return numbers.stream().map(n -> n.getDigit(position)).collect(Collectors.groupingBy(Function.identity()));
     }
 
-    private static Character mostCommonDigit(List<BinaryString> numbers, int position) {
+    private Character mostCommonDigit(List<BinaryString> numbers, int position) {
         var occurrences = occurrences(numbers, position);
-        if (occurrences.get('1').size() >= occurrences.get('0').size()) return '1'; else return '0';
+        if (occurrences.get('1').size() >= occurrences.get('0').size()) return '1';
+        else return '0';
     }
 
-    private static Character leastCommonDigit(List<BinaryString> numbers, int position) {
+    private Character leastCommonDigit(List<BinaryString> numbers, int position) {
         var occurrences = occurrences(numbers, position);
-        if (occurrences.get('1').size() < occurrences.get('0').size()) return '1'; else return '0';
+        if (occurrences.get('1').size() < occurrences.get('0').size()) return '1';
+        else return '0';
     }
 
 
-    public static BinaryString findMatch(List<BinaryString> numbers, BiFunction<List<BinaryString>, Integer, Character> findBitCriteria, int position) {
+    public BinaryString findMatch(List<BinaryString> numbers, BiFunction<List<BinaryString>, Integer, Character> findBitCriteria, int position) {
         var bitCriteria = findBitCriteria.apply(numbers, position);
         var filtered = numbers.stream().filter(n -> n.getDigit(position) == bitCriteria).toList();
         if (filtered.size() == 1) return filtered.get(0);
         return findMatch(filtered, findBitCriteria, position + 1);
     }
 
-    public static Integer partTwo(Input input) {
+    public Integer partTwo(Input input) {
         var inputs = input.asList(BinaryString::new);
 
-        var oxygen = findMatch(inputs, Day03::mostCommonDigit, 0);
-        var co2 = findMatch(inputs, Day03::leastCommonDigit, 0);
+        var oxygen = findMatch(inputs, this::mostCommonDigit, 0);
+        var co2 = findMatch(inputs, this::leastCommonDigit, 0);
 
         return oxygen.toInteger() * co2.toInteger();
-    }
-
-    public static void main(String[] args) {
-        new Solution<>(3, Day03::partOne, Day03::partTwo).run();
     }
 
 }
