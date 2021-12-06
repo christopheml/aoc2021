@@ -5,6 +5,7 @@ import common.runners.Input;
 import common.runners.Solution;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.lang.Integer.parseInt;
 
@@ -24,12 +25,12 @@ public class Day05 extends Solution<Long> {
         return new Point(parseInt(values[0]), parseInt(values[1]));
     }
 
-    public Long partOne(Input input) {
+    private long countIntersections(Input input, Predicate<Segment> keepSegment) {
         var segments = input.asList(this::toSegment);
         var grid = new InfiniteGrid<>(Counter::new);
 
         segments.stream()
-                .filter(Segment::isStraight)
+                .filter(keepSegment)
                 .map(Segment::getPoints)
                 .flatMap(List::stream)
                 .forEach(point -> grid.get(point).inc());
@@ -37,16 +38,12 @@ public class Day05 extends Solution<Long> {
         return grid.values().stream().filter(c -> c.get() > 1).count();
     }
 
+    public Long partOne(Input input) {
+        return countIntersections(input, Segment::isStraight);
+    }
+
     public Long partTwo(Input input) {
-        var segments = input.asList(this::toSegment);
-        var grid = new InfiniteGrid<>(Counter::new);
-
-        segments.stream()
-                .map(Segment::getPoints)
-                .flatMap(List::stream)
-                .forEach(point -> grid.get(point).inc());
-
-        return grid.values().stream().filter(c -> c.get() > 1).count();
+        return countIntersections(input, s -> true);
     }
 
 }
