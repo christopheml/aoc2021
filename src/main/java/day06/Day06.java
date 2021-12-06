@@ -5,20 +5,16 @@ import common.runners.Solution;
 
 import java.util.Arrays;
 
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.groupingBy;
-
 public class Day06 extends Solution<Long> {
     public Day06() {
         super(2021, 6);
     }
 
     private LanternFishPopulation getPopulation(Input input) {
-        var groups = Arrays.stream(input.asOneLine().split(","))
+        var fishes = Arrays.stream(input.asOneLine().split(","))
                 .map(Integer::parseInt)
-                .collect(groupingBy(identity()));
-
-        return new LanternFishPopulation(groups);
+                .toList();
+        return new LanternFishPopulation(fishes);
     }
 
 

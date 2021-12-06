@@ -2,15 +2,14 @@ package day06;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class LanternFishPopulation {
 
     private long[] counts;
 
-    public LanternFishPopulation(Map<Integer, List<Integer>> timers) {
+    public LanternFishPopulation(List<Integer> timers) {
         counts = new long[9];
-        timers.forEach((timer, individuals) -> counts[timer] = individuals.size());
+        timers.forEach(timer -> counts[timer]++);
     }
 
     public void tick() {
