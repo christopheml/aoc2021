@@ -24,7 +24,7 @@ public abstract class Solution<T> {
     }
 
     private void run(Function<Input, T> part, int number) {
-        var input = new Input(day);
+        var input = new Input(year, day);
         var timer = new Timer();
         timer.start();
         var result = part.apply(input);

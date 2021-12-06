@@ -1,4 +1,4 @@
-package day05;
+package year2021.day05;
 
 import common.*;
 import common.runners.Input;

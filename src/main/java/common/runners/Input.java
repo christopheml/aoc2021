@@ -13,14 +13,16 @@ import java.util.stream.Stream;
 
 public class Input {
 
+    private final int year;
     private final int day;
 
-    public Input(int day) {
+    public Input(int year, int day) {
+        this.year = year;
         this.day = day;
     }
 
     private InputStream openResource() {
-        var filename = String.format("inputs/%02d.txt", day);
+        var filename = String.format("inputs/%d/%02d.txt", year, day);
         return this.getClass().getClassLoader().getResourceAsStream(filename);
     }
 

@@ -1,4 +1,4 @@
-package day01;
+package year2021.day01;
 
 import common.runners.Input;
 import common.collections.ListOps;

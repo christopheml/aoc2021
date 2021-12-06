@@ -1,4 +1,4 @@
-package day03;
+package year2021.day03;
 
 import common.collections.ArrayOps;
 import common.BinaryString;

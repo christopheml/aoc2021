@@ -1,4 +1,4 @@
-package day04;
+package year2021.day04;
 
 import java.util.Arrays;
 import java.util.List;

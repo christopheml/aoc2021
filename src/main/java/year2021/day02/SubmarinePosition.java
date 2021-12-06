@@ -1,4 +1,4 @@
-package day02;
+package year2021.day02;
 
 public record SubmarinePosition(int aim, int x, int depth) {
 
