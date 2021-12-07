@@ -1,11 +1,12 @@
 package year2021.day07;
 
+import common.MathOps;
 import common.StringOps;
 import common.runners.Input;
 import common.runners.Solution;
 
+import java.util.List;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 
 import static java.lang.Math.abs;
 
@@ -19,22 +20,26 @@ public class Day07 extends Solution<Integer> {
         return distance * (distance + 1) / 2;
     }
 
-    private int findLowestFuelCost(Input input, Function<Integer, Integer> distanceToFuelCost) {
+    private int findLowestFuelCost(Input input, Function<List<Integer>, List<Integer>> targetCandidates, Function<Integer, Integer> distanceToFuelCost) {
         var positions = StringOps.asStream(input.asOneLine(), ",", Integer::parseInt).sorted().toList();
-        return IntStream.rangeClosed(positions.get(0), positions.get(positions.size() - 1))
+        return targetCandidates.apply(positions).stream().mapToInt(Integer::intValue)
                 .map(target -> positions.stream().mapToInt(p -> distanceToFuelCost.apply(abs(p - target))).sum())
                 .min()
-                .getAsInt();
+                .orElseThrow();
     }
 
     @Override
     public Integer partOne(Input input) {
-        return findLowestFuelCost(input, Function.identity());
+        return findLowestFuelCost(input, positions -> List.of(MathOps.median(positions)), Function.identity());
     }
 
     @Override
     public Integer partTwo(Input input) {
-        return findLowestFuelCost(input, this::highFuelCost);
+        return findLowestFuelCost(input, positions -> {
+            var average = MathOps.average(positions);
+            // Trying only one of those may fail depending on input data
+            return List.of((int) Math.floor(average), (int) Math.ceil(average));
+        }, this::highFuelCost);
     }
 
 }
