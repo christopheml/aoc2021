@@ -1,4 +1,4 @@
-package common;
+package common.grid;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -27,6 +27,12 @@ public record Segment(Point origin, Point end) {
         return IntStream.rangeClosed(0, length)
                 .mapToObj(i -> new Point(origin.x() + i * xIncrement, origin.y() + i * yIncrement))
                 .toList();
+    }
+
+    public int length() {
+        if (isHorizontal()) return Math.abs(end.x() - origin.x());
+        if (isVertical()) return Math.abs(end.y() - origin.y());
+        throw new IllegalArgumentException("Segment not straight");
     }
 
 }

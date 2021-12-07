@@ -10,4 +10,8 @@ public class StringOps {
         return Arrays.stream(text.split(separator)).map(mapper).toList();
     }
 
+    public static List<String> asList(String text, String separator) {
+        return asList(text, separator, Function.identity());
+    }
+
 }

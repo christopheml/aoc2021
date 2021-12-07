@@ -1,5 +1,7 @@
 package common;
 
+import common.grid.Point;
+import common.grid.Segment;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -1,6 +1,6 @@
 package year2021.day02;
 
-import common.Point;
+import common.grid.Point;
 
 public record Up(int depth) implements Command {
 

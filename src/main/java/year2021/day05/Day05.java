@@ -1,6 +1,9 @@
 package year2021.day05;
 
 import common.*;
+import common.grid.InfiniteGrid;
+import common.grid.Point;
+import common.grid.Segment;
 import common.runners.Input;
 import common.runners.Solution;
 

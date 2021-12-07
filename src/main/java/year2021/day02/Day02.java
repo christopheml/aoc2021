@@ -2,7 +2,7 @@ package year2021.day02;
 
 import common.runners.Input;
 import common.collections.ListOps;
-import common.Point;
+import common.grid.Point;
 import common.runners.Solution;
 
 import java.util.List;

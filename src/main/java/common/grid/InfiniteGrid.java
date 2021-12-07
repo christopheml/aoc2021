@@ -1,4 +1,4 @@
-package common;
+package common.grid;
 
 import java.util.Collection;
 import java.util.HashMap;
