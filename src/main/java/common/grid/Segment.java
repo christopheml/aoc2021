@@ -21,12 +21,16 @@ public record Segment(Point origin, Point end) {
     }
 
     public List<Point> getPoints() {
-        var xIncrement = isVertical() ? 0 : (origin.x() < end.x() ? 1 : - 1);
-        var yIncrement = isHorizontal() ? 0 : (origin.y() < end.y() ? 1 : - 1);
+        var xIncrement = isVertical() ? 0 : (origin.x() < end.x() ? 1 : -1);
+        var yIncrement = isHorizontal() ? 0 : (origin.y() < end.y() ? 1 : -1);
         var length = max(abs(end.y() - origin.y()), abs(end.x() - origin.x()));
         return IntStream.rangeClosed(0, length)
                 .mapToObj(i -> new Point(origin.x() + i * xIncrement, origin.y() + i * yIncrement))
                 .toList();
+    }
+
+    public List<Point> getPointsExclusive() {
+        return getPoints().stream().filter(p -> !p.equals(end)).toList();
     }
 
     public int length() {

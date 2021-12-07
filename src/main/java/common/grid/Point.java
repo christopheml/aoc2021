@@ -1,5 +1,7 @@
 package common.grid;
 
+import java.util.function.Predicate;
+
 import static java.lang.Math.abs;
 
 public record Point(int x, int y) implements Comparable<Point> {
@@ -14,4 +16,13 @@ public record Point(int x, int y) implements Comparable<Point> {
     public int compareTo(Point o) {
         return this.manhattanDistance() - o.manhattanDistance();
     }
+
+    public static Predicate<Point> isOrigin() {
+        return point -> point.equals(ORIGIN);
+    }
+
+    public static Predicate<Point> isNotOrigin() {
+        return Predicate.not(isOrigin());
+    }
+
 }
