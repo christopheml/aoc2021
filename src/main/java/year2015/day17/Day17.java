@@ -2,7 +2,9 @@ package year2015.day17;
 
 import common.runners.Input;
 import common.runners.Solution;
+import io.vavr.Tuple2;
 import io.vavr.collection.List;
+import io.vavr.collection.Traversable;
 
 public class Day17 extends Solution<Integer> {
 
@@ -21,6 +23,12 @@ public class Day17 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        return 0;
+        var smallestCombinations = List.ofAll(input.asList(Integer::parseInt))
+                .combinations()
+                .filter(selection -> selection.sum().intValue() == target)
+                .groupBy(Traversable::size)
+                .minBy(Tuple2::_1)
+                .getOrElseThrow(IllegalStateException::new);
+        return smallestCombinations._2.size();
     }
 }
