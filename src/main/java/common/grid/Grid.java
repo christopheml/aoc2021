@@ -64,7 +64,7 @@ public class Grid<T> {
     }
 
     public T get(Point p) {
-        return get(p.x(), p.y());
+        return p.applyFunction(this::get);
     }
 
     public List<T> elements() {
@@ -76,7 +76,7 @@ public class Grid<T> {
     }
 
     private Optional<T> safeGet(Point p) {
-        return safeGet(p.x(), p.y());
+        return p.applyFunction(this::safeGet);
     }
 
     private boolean inBounds(int x, int y) {
