@@ -1,5 +1,6 @@
 package common.grid;
 
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 import static java.lang.Math.abs;
@@ -10,6 +11,10 @@ public record Point(int x, int y) implements Comparable<Point> {
 
     public int manhattanDistance() {
         return abs(x) + abs(y);
+    }
+
+    public <T> T applyFunction(BiFunction<Integer, Integer, T> function) {
+        return function.apply(x, y);
     }
 
     @Override
