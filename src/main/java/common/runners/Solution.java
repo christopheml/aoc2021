@@ -30,6 +30,7 @@ public abstract class Solution<T> {
         var result = part.apply(input);
         var time = timer.stop();
         var representation = switch (result) {
+            case null -> "<no result>";
             case String s -> s;
             case Long l -> Long.toString(l);
             case Integer i -> Integer.toString(i);
