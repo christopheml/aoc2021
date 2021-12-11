@@ -2,11 +2,12 @@ package year2021.day11;
 
 import common.CharOps;
 import common.StringOps;
-import common.grid.IntGrid;
 import common.grid.Point;
+import common.grid2.MutableGrid;
 import common.runners.Input;
 import common.runners.Solution;
 import io.vavr.collection.List;
+import io.vavr.collection.Stream;
 
 public class Day11 extends Solution<Integer> {
 
@@ -14,48 +15,38 @@ public class Day11 extends Solution<Integer> {
         super(2021, 11);
     }
 
-    public IntGrid toGrid(Input input) {
-        return new IntGrid(List.ofAll(input.asList())
+    public MutableGrid<Integer> toGrid(Input input) {
+        var values = List.ofAll(input.asList())
                 .map(StringOps::toChars)
                 .map(List::ofAll)
-                .map(chars -> chars.map(CharOps::digitToInt)));
+                .map(chars -> chars.map(CharOps::digitToInt));
+        return MutableGrid.of(values, Integer.class);
     }
 
-    private void flash(IntGrid grid, Point position) {
-        grid.set(position.x(), position.y(), Integer.MIN_VALUE);
-        grid.allNeighbors(position.x(), position.y())
-                .filter(p -> grid.get(p.x(), p.y()) >= 0)
+    private void flash(MutableGrid<Integer> grid, Point position) {
+        grid.set(position, Integer.MIN_VALUE);
+        grid.allNeighborPositions(position)
+                .filter(p -> grid.get(p) >= 0)
                 .forEach(p -> {
-                    grid.inc(p.x(), p.y());
-                    if (grid.get(p.x(), p.y()) > 9) flash(grid, p);
+                    grid.update(p, o -> o + 1);
+                    if (grid.get(p) > 9) flash(grid, p);
                 });
+    }
+
+    private int update(MutableGrid<Integer> grid) {
+        grid.positions().forEach(position -> {
+            grid.update(position, o -> o + 1);
+            if (grid.get(position) > 9) flash(grid, position);
+        });
+
+        grid.updateAll(o -> Math.max(0, o));
+        return grid.count(o -> o == 0);
     }
 
     @Override
     public Integer partOne(Input input) {
         var grid = toGrid(input);
-
-        var flashCount = 0;
-        for (int i = 1; i <= 100; i++) {
-            for (int y = 0; y < grid.height; ++y) {
-                for (int x = 0; x < grid.width; ++x) {
-                    grid.inc(x, y);
-                    if (grid.get(x, y) > 9) {
-                        flash(grid, new Point(x, y));
-                    }
-                }
-            }
-            for (int y = 0; y < grid.height; ++y) {
-                for (int x = 0; x < grid.width; ++x) {
-                    if (grid.get(x, y) < 0) {
-                        flashCount++;
-                        grid.set(x, y, 0);
-                    }
-                }
-            }
-        }
-
-        return flashCount;
+        return Stream.rangeClosed(1, 100).foldLeft(0, (total, step) -> total + update(grid));
     }
 
     @Override
@@ -63,22 +54,8 @@ public class Day11 extends Solution<Integer> {
         var grid = toGrid(input);
 
         for (int i = 1; i <= 1000000; i++) {
-            for (int y = 0; y < grid.height; ++y) {
-                for (int x = 0; x < grid.width; ++x) {
-                    grid.inc(x, y);
-                    if (grid.get(x, y) > 9) {
-                        flash(grid, new Point(x, y));
-                    }
-                }
-            }
-            for (int y = 0; y < grid.height; ++y) {
-                for (int x = 0; x < grid.width; ++x) {
-                    if (grid.get(x, y) < 0) {
-                        grid.set(x, y, 0);
-                    }
-                }
-            }
-            if (grid.forALl(o -> o == 0)) return i;
+            update(grid);
+            if (grid.forAll(o -> o == 0)) return i;
         }
         return null;
     }
