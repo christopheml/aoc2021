@@ -30,4 +30,8 @@ public record Point(int x, int y) implements Comparable<Point> {
         return Predicate.not(isOrigin());
     }
 
+    public Point move(int xOffset, int yOffset) {
+        return new Point(x + xOffset, y + yOffset);
+    }
+
 }
