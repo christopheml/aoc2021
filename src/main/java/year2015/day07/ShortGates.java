@@ -21,7 +21,7 @@ public class ShortGates {
     }
 
     public static int RSHIFT(int a, int b) {
-        return to16bits(b >> a);
+        return to16bits(a >> b);
     }
 
     public static int NOT(int n) {
@@ -30,6 +30,23 @@ public class ShortGates {
 
     private static int to16bits(int n) {
         return n & 0xFFFF;
+    }
+
+    public static UnaryGate toUnaryGate(String name) {
+        return switch (name) {
+            case "NOT" -> ShortGates::NOT;
+            case default -> throw new IllegalArgumentException("Unknown unary operator : " + name);
+        };
+    }
+
+    public static BinaryGate toBinaryGate(String name) {
+        return switch (name) {
+            case "AND" -> ShortGates::AND;
+            case "OR" -> ShortGates::OR;
+            case "LSHIFT" -> ShortGates::LSHIFT;
+            case "RSHIFT" -> ShortGates::RSHIFT;
+            case default -> throw new IllegalArgumentException("Unknown binary operator : " + name);
+        };
     }
 
 }

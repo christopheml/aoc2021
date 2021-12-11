@@ -1,11 +1,11 @@
 package year2015.runners;
 
-import year2015.day20.Day20;
+import year2015.day07.Day07;
 
 public class Run2015 {
 
     public static void main(String[] args) {
-        var solution = new Day20();
+        var solution = new Day07();
         solution.run();
     }
 
