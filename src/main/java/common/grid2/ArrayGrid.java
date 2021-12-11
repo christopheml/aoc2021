@@ -25,6 +25,7 @@ public class ArrayGrid<T> extends BoundedGrid implements MutableGrid<T> {
 
     @Override
     public T get(Point position) {
+        boundsCheck(position);
         return elements[index(position)];
     }
 

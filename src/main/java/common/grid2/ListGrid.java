@@ -26,6 +26,7 @@ public class ListGrid<T> extends BoundedGrid implements ImmutableGrid<T> {
 
     @Override
     public T get(Point position) {
+        boundsCheck(position);
         return elements.get(position.y()).get(position.x());
     }
 

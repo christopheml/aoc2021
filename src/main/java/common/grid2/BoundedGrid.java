@@ -17,6 +17,10 @@ abstract class BoundedGrid {
         return position.x() >= 0 && position.x() < width && position.y() >= 0 && position.y() < height;
     }
 
+    protected void boundsCheck(Point position) {
+        if (!inBounds(position)) throw new IllegalArgumentException("Point " + position + " is outside bounds");
+    }
+
     public Stream<Point> positions() {
         return Stream.range(0, height).flatMap(y -> Stream.range(0, width).map(x -> new Point(x, y)));
     }
