@@ -5,6 +5,7 @@ import jdk.jshell.spi.ExecutionControl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class StringOps {
@@ -23,6 +24,21 @@ public class StringOps {
 
     public static List<Character> toChars(String text) {
         return text.chars().mapToObj(c -> (char) c).toList();
+    }
+
+    private static boolean forAllChars(String text, Predicate<Character> predicate) {
+        for (int i = 0; i < text.length(); i++) {
+            if (!predicate.test(text.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    public static boolean isUpperCase(String text) {
+        return forAllChars(text, Character::isUpperCase);
+    }
+
+    public static boolean isLowerCase(String text) {
+        return forAllChars(text, Character::isLowerCase);
     }
 
 }
