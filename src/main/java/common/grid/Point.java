@@ -3,6 +3,7 @@ package common.grid;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.Math.abs;
 
 public record Point(int x, int y) implements Comparable<Point> {
@@ -32,6 +33,11 @@ public record Point(int x, int y) implements Comparable<Point> {
 
     public Point move(int xOffset, int yOffset) {
         return new Point(x + xOffset, y + yOffset);
+    }
+
+    public static Point fromString(String text) {
+        var parts = text.split(",");
+        return new Point(parseInt(parts[0]), parseInt(parts[1]));
     }
 
 }
