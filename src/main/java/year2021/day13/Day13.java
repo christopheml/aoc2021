@@ -19,17 +19,11 @@ public class Day13 extends Solution<Integer> {
     }
 
     private Set<Point> horizontalFold(Set<Point> points, int y) {
-        return points.map(p -> {
-            if (p.y() < y) return p;
-            return new Point(p.x(), 2 * y - p.y());
-        });
+        return points.map(p -> (p.y() < y) ? p : new Point(p.x(), 2 * y - p.y()));
     }
 
     private Set<Point> verticalFold(Set<Point> points, int x) {
-        return points.map(p -> {
-            if (p.x() < x) return p;
-            return new Point(2 * x - p.x(), p.y());
-        });
+        return points.map(p -> (p.x() < x) ? p : new Point(2 * x - p.x(), p.y()));
     }
 
     public List<Function<Set<Point>, Set<Point>>> toFolds(Collection<String> lines) {
