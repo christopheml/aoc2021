@@ -61,15 +61,8 @@ public class Day13 extends Solution<Integer> {
         for (var fold : folds) {
             points = fold.apply(points);
         }
-        var edge = new Point(points.maxBy(Point::x).get().x() + 1, points.maxBy(Point::y).get().y() + 1);
-        var sb = new StringBuilder();
-        for (int y = 0; y < edge.y(); ++y) {
-            for (int x = 0; x < edge.x(); ++x) {
-                sb.append(points.contains(new Point(x, y)) ? "#" : " ");
-            }
-            sb.append("\n");
-        }
-        System.out.println(sb);
+
+        System.out.println(Point.render(points));
         return null;
     }
 
