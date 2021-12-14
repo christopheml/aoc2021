@@ -20,12 +20,12 @@ public abstract class Solution<T> {
 
     public void run() {
         System.out.printf("Solution for %d day %02d%n", year, day);
-        run(this::partOne, 1);
-        run(this::partTwo, 2);
+        var input = new Input(year, day);
+        run(1, input, this::partOne);
+        run(2, input, this::partTwo);
     }
 
-    private void run(Function<Input, T> part, int number) {
-        var input = new Input(year, day);
+    private void run(int number, Input input, Function<Input, T> part) {
         var timer = new Timer();
         timer.start();
         var result = part.apply(input);
