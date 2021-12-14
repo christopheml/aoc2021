@@ -1,6 +1,6 @@
 package common;
 
-import jdk.jshell.spi.ExecutionControl;
+import io.vavr.Tuple2;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +39,16 @@ public class StringOps {
 
     public static boolean isLowerCase(String text) {
         return forAllChars(text, Character::isLowerCase);
+    }
+
+    public static Tuple2<String, String> toTuple(String text) {
+        var parts = text.split(" -> ");
+        return new Tuple2<>(parts[0], parts[1]);
+    }
+
+    public static <T> Tuple2<T, T> toTuple(String text, Function<String, T> mapper) {
+        var parts = text.split(" -> ");
+        return new Tuple2<>(mapper.apply(parts[0]), mapper.apply(parts[1]));
     }
 
 }
