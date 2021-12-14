@@ -1,5 +1,6 @@
 package year2021.day14;
 
+import common.FunctionOps;
 import common.StringOps;
 import common.runners.Input;
 import common.runners.Solution;
@@ -7,6 +8,7 @@ import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Day14 extends Solution<Long> {
@@ -15,33 +17,35 @@ public class Day14 extends Solution<Long> {
         super(2021, 14);
     }
 
-    private long answer(java.util.Map<String, Long> frequencies) {
-        var characterFrequencies = io.vavr.collection.HashMap.ofAll(frequencies).flatMap(t ->
-                        List.of(
-                                new Tuple2<>(t._1.charAt(0), t._2),
-                                new Tuple2<>(t._1.charAt(1), t._2)
-                        )
-                ).groupBy(t -> t._1)
-                .mapValues(counts -> counts.map(Tuple2::_2).sum().longValue())
-                .values()
-                .sorted();
-
-        return (characterFrequencies.last() - characterFrequencies.head() + 1) / 2;
-    }
-
     @Override
     public Long partOne(Input input) {
         var groups = input.asGroups();
         var polymer = groups.get(0).get(0);
-        var substitutions = List.ofAll(groups.get(1)).toMap(StringOps::toTuple).toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
+        var substitutions = createSubstitutions(groups.get(1));
+        HashMap<String, Long> frequencies = createFrequencies(polymer);
+
+        frequencies = FunctionOps.applyN(frequencies, f -> updateFrequencies(substitutions, f), 10);
+
+        return answer(frequencies);
+    }
+
+    @Override
+    public Long partTwo(Input input) {
+        var groups = input.asGroups();
+        var polymer = groups.get(0).get(0);
+        var substitutions = createSubstitutions(groups.get(1));
 
         HashMap<String, Long> frequencies = createFrequencies(polymer);
 
-        for (int i = 0; i < 10; ++i) {
-            frequencies = updateFrequencies(substitutions, frequencies);
-        }
+        frequencies = FunctionOps.applyN(frequencies, f -> updateFrequencies(substitutions, f), 40);
 
         return answer(frequencies);
+    }
+
+    private Map<String, Tuple2<String, String>> createSubstitutions(Collection<String> lines) {
+        return List.ofAll(lines)
+                .toMap(StringOps::toTuple)
+                .toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
     }
 
     private HashMap<String, Long> createFrequencies(String polymer) {
@@ -66,19 +70,18 @@ public class Day14 extends Solution<Long> {
         return updatedFrequencies;
     }
 
-    @Override
-    public Long partTwo(Input input) {
-        var groups = input.asGroups();
-        var polymer = groups.get(0).get(0);
-        var substitutions = List.ofAll(groups.get(1)).toMap(StringOps::toTuple).toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
+    private long answer(java.util.Map<String, Long> frequencies) {
+        var characterFrequencies = io.vavr.collection.HashMap.ofAll(frequencies).flatMap(t ->
+                        List.of(
+                                new Tuple2<>(t._1.charAt(0), t._2),
+                                new Tuple2<>(t._1.charAt(1), t._2)
+                        )
+                ).groupBy(t -> t._1)
+                .mapValues(counts -> counts.map(Tuple2::_2).sum().longValue())
+                .values()
+                .sorted();
 
-        HashMap<String, Long> frequencies = createFrequencies(polymer);
-
-        for (int i = 0; i < 40; ++i) {
-            frequencies = updateFrequencies(substitutions, frequencies);
-        }
-
-        return answer(frequencies);
+        return (characterFrequencies.last() - characterFrequencies.head() + 1) / 2;
     }
 
 }
