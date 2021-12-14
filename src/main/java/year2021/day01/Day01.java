@@ -1,6 +1,6 @@
 package year2021.day01;
 
-import common.runners.Input;
+import common.input.Input;
 import common.collections.ListOps;
 import common.runners.Solution;
 

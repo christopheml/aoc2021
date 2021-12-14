@@ -1,7 +1,7 @@
 package year2015.day02;
 
 import common.StringOps;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;

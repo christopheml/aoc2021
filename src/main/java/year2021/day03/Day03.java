@@ -2,7 +2,7 @@ package year2021.day03;
 
 import common.collections.ArrayOps;
 import common.BinaryString;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 
 import java.util.List;

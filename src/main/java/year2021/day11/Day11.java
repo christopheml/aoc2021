@@ -4,7 +4,7 @@ import common.CharOps;
 import common.StringOps;
 import common.grid.Point;
 import common.grid2.MutableGrid;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;

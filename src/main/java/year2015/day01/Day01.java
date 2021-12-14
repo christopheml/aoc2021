@@ -1,6 +1,6 @@
 package year2015.day01;
 
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import io.vavr.Tuple2;
 import io.vavr.collection.Stream;

@@ -4,7 +4,7 @@ import common.*;
 import common.grid.InfiniteGrid;
 import common.grid.Point;
 import common.grid.Segment;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 
 import java.util.List;

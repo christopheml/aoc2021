@@ -5,13 +5,11 @@ import common.StringOps;
 import common.grid.Grid;
 import common.grid.InfiniteGrid;
 import common.grid.Point;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 public class Day09 extends Solution<Integer> {

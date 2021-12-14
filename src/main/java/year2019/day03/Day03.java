@@ -4,7 +4,7 @@ import common.StringOps;
 import common.grid.Direction;
 import common.grid.Point;
 import common.grid.Segment;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import io.vavr.Tuple2;
 import io.vavr.collection.Map;

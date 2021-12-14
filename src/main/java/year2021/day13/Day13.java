@@ -1,13 +1,13 @@
 package year2021.day13;
 
 import common.grid.Point;
-import common.runners.Input;
+import common.input.Input;
+import common.input.InputGroup;
 import common.runners.Solution;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 
-import java.util.Collection;
 import java.util.function.Function;
 
 import static java.lang.Integer.parseInt;
@@ -26,8 +26,8 @@ public class Day13 extends Solution<Integer> {
         return points.map(p -> (p.x() < x) ? p : new Point(2 * x - p.x(), p.y()));
     }
 
-    public List<Function<Set<Point>, Set<Point>>> toFolds(Collection<String> lines) {
-        return List.ofAll(lines)
+    public List<Function<Set<Point>, Set<Point>>> toFolds(InputGroup input) {
+        return List.ofAll(input.asList())
                 .map(line -> {
                     var parts = line.split("=");
                     var position = parseInt(parts[1]);
@@ -40,7 +40,7 @@ public class Day13 extends Solution<Integer> {
     @Override
     public Integer partOne(Input input) {
         var groups = input.asGroups();
-        var points = HashSet.ofAll(groups.get(0)).map(Point::fromString);
+        var points = groups.get(0).asSet(Point::fromString);
         var folds = toFolds(groups.get(1));
 
         return folds.head().apply(points).size();
@@ -49,7 +49,7 @@ public class Day13 extends Solution<Integer> {
     @Override
     public Integer partTwo(Input input) {
         var groups = input.asGroups();
-        Set<Point> points = HashSet.ofAll(groups.get(0)).map(Point::fromString);
+        var points = groups.get(0).asSet(Point::fromString);
         var folds = toFolds(groups.get(1));
 
         for (var fold : folds) {

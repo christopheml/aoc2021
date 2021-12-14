@@ -2,13 +2,13 @@ package year2021.day14;
 
 import common.FunctionOps;
 import common.StringOps;
-import common.runners.Input;
+import common.input.Input;
+import common.input.InputGroup;
 import common.runners.Solution;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 public class Day14 extends Solution<Long> {
@@ -20,7 +20,7 @@ public class Day14 extends Solution<Long> {
     @Override
     public Long partOne(Input input) {
         var groups = input.asGroups();
-        var polymer = groups.get(0).get(0);
+        var polymer = groups.get(0).asOneLine();
         var substitutions = createSubstitutions(groups.get(1));
         HashMap<String, Long> frequencies = createFrequencies(polymer);
 
@@ -32,7 +32,7 @@ public class Day14 extends Solution<Long> {
     @Override
     public Long partTwo(Input input) {
         var groups = input.asGroups();
-        var polymer = groups.get(0).get(0);
+        var polymer = groups.get(0).asOneLine();
         var substitutions = createSubstitutions(groups.get(1));
 
         HashMap<String, Long> frequencies = createFrequencies(polymer);
@@ -42,8 +42,8 @@ public class Day14 extends Solution<Long> {
         return answer(frequencies);
     }
 
-    private Map<String, Tuple2<String, String>> createSubstitutions(Collection<String> lines) {
-        return List.ofAll(lines)
+    private Map<String, Tuple2<String, String>> createSubstitutions(InputGroup lines) {
+        return List.ofAll(lines.asList())
                 .map(StringOps::toTuple)
                 .toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
     }

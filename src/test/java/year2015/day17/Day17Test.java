@@ -1,6 +1,6 @@
 package year2015.day17;
 
-import common.runners.Input;
+import common.input.Input;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

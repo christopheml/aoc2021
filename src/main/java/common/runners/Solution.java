@@ -1,6 +1,7 @@
 package common.runners;
 
 import common.Timer;
+import common.input.Input;
 
 import java.util.function.Function;
 

@@ -1,6 +1,6 @@
 package year2021.day04;
 
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 import common.StringOps;
 
@@ -15,10 +15,10 @@ public class Day04 extends Solution<Integer> {
     public Integer partOne(Input input) {
         var groups = input.asGroups();
 
-        var draws = StringOps.asList(groups.get(0).get(0), ",", Integer::valueOf);
+        var draws = groups.get(0).asSeparatedIntegers();
 
         var cards = groups.subList(1, groups.size()).stream().map(
-                group -> group.stream().map(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf)).toList()
+                group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
         ).map(BingoCard::new).toList();
 
         for (var draw: draws) {
@@ -34,10 +34,10 @@ public class Day04 extends Solution<Integer> {
     public Integer partTwo(Input input) {
         var groups = input.asGroups();
 
-        var draws = StringOps.asList(groups.get(0).get(0), ",", Integer::valueOf);
+        var draws = groups.get(0).asSeparatedIntegers();
 
         var cards = new ArrayList<>(groups.subList(1, groups.size()).stream().map(
-                group -> group.stream().map(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf)).toList()
+                group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
         ).map(BingoCard::new).toList());
 
         BingoCard lastWinner = null;

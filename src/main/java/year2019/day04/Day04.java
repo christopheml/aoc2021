@@ -1,6 +1,6 @@
 package year2019.day04;
 
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 
 import java.util.Arrays;

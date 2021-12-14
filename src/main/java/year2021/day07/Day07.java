@@ -1,8 +1,7 @@
 package year2021.day07;
 
 import common.MathOps;
-import common.StringOps;
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class Day07 extends Solution<Integer> {
     }
 
     private int findLowestFuelCost(Input input, Function<List<Integer>, List<Integer>> targetCandidates, Function<Integer, Integer> distanceToFuelCost) {
-        var positions = StringOps.asStream(input.asOneLine(), ",", Integer::parseInt).sorted().toList();
+        var positions = input.asSeparatedIntegers().stream().sorted().toList();
         return targetCandidates.apply(positions).stream().mapToInt(Integer::intValue)
                 .map(target -> positions.stream().mapToInt(p -> distanceToFuelCost.apply(abs(p - target))).sum())
                 .min()

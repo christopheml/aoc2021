@@ -1,6 +1,6 @@
 package year2019.day01;
 
-import common.runners.Input;
+import common.input.Input;
 import common.runners.Solution;
 
 public class Day01 extends Solution<Integer> {

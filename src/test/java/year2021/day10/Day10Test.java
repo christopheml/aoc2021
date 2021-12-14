@@ -1,6 +1,6 @@
 package year2021.day10;
 
-import common.runners.Input;
+import common.input.Input;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
