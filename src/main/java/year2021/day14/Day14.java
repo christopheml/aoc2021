@@ -44,12 +44,12 @@ public class Day14 extends Solution<Long> {
 
     private Map<String, Tuple2<String, String>> createSubstitutions(Collection<String> lines) {
         return List.ofAll(lines)
-                .toMap(StringOps::toTuple)
+                .map(StringOps::toTuple)
                 .toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
     }
 
     private HashMap<String, Long> createFrequencies(String polymer) {
-        var frequencies = new HashMap<String, Long>();
+        var frequencies = new HashMap<String, Long>(18);
         for (int i = 0; i < polymer.length() - 1; i++) {
             var pair = polymer.substring(i, i + 2);
             frequencies.computeIfPresent(pair, (p, count) -> count + 1);
