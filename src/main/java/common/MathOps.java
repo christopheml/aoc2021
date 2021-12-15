@@ -2,7 +2,9 @@ package common;
 
 import java.util.List;
 
-public class MathOps {
+public final class MathOps {
+
+    private MathOps() {}
 
     public static <T> T median(List<T> elements) {
         var sorted = elements.stream().sorted().toList();
@@ -12,6 +14,10 @@ public class MathOps {
 
     public static <T extends Number> double average(List<T> elements) {
         return elements.stream().mapToDouble(Number::doubleValue).average().orElseThrow();
+    }
+
+    public static int bounded(int value, int min, int max) {
+        return (value - min) % max + min;
     }
 
 }

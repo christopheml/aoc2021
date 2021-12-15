@@ -67,7 +67,24 @@ public interface ImmutableGrid<T> {
         return mapper.apply(get(position));
     }
 
+    int width();
+
+    int height();
+
+    Point maxPosition();
+
+    boolean contains(Point position);
+
     static <U> ImmutableGrid<U> of(List<List<U>> values) {
+        return new ListGrid<>(values);
+    }
+
+    static <U> ImmutableGrid<U> compute(int width, int height, Function<Point, U> defaultValue) {
+        var values = Stream.range(0, height)
+                .map(y -> Stream.range(0, width)
+                        .map(x -> defaultValue.apply(new Point(x, y)))
+                        .toList())
+                .toList();
         return new ListGrid<>(values);
     }
 

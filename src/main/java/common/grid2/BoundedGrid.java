@@ -42,4 +42,20 @@ abstract class BoundedGrid {
         ).filter(this::inBounds);
     }
 
+    public Point maxPosition() {
+        return new Point(width - 1, height - 1);
+    }
+
+    public int width() {
+        return width;
+    }
+
+    public int height() {
+        return height;
+    }
+
+    public boolean contains(Point position) {
+        return inBounds(position);
+    }
+
 }

@@ -30,4 +30,13 @@ public class ListGrid<T> extends BoundedGrid implements ImmutableGrid<T> {
         return elements.get(position.y()).get(position.x());
     }
 
+    public String toString() {
+        var sb = new StringBuilder();
+        elements.forEach(line -> {
+            line.forEach(sb::append);
+            sb.append("\n");
+        });
+        return sb.toString();
+    }
+
 }
