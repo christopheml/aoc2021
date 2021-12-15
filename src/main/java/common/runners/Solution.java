@@ -37,7 +37,14 @@ public abstract class Solution<T> {
             case Integer i -> Integer.toString(i);
             default -> result.toString();
         };
-        System.out.printf("\tPart %d (time: %dms): %s%n", number, time, representation);
+        System.out.printf("\tPart %d (time: %s): %s%n", number, formatTime(time), representation);
+    }
+
+    private String formatTime(long millis) {
+        if (millis < 1000) return String.format("%dms", millis);
+        var seconds = millis / 1000;
+        if (seconds < 60) return String.format("%ds", seconds);
+        return String.format("%dm%ds", seconds / 60, seconds % 60);
     }
 
 }
