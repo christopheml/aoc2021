@@ -3,16 +3,12 @@ package year2021.day15;
 import common.CharOps;
 import common.MathOps;
 import common.StringOps;
+import common.algorithms.Dijkstra;
 import common.grid.Point;
 import common.grid2.ImmutableGrid;
-import common.grid2.MutableGrid;
 import common.input.Input;
 import common.runners.Solution;
 import io.vavr.collection.List;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Day15 extends Solution<Integer> {
 
@@ -28,40 +24,11 @@ public class Day15 extends Solution<Integer> {
                 .map(chars -> chars.map(CharOps::digitToInt)));
     }
 
-    private List<Point> dijkstra(ImmutableGrid<Integer> grid) {
-        var d = MutableGrid.compute(grid.width(), grid.height(),
-                p -> Point.ORIGIN.equals(p) ? 0 : Integer.MAX_VALUE, Integer.class);
-        var nodes = grid.positions().toList();
-        var predecessor = new HashMap<Point, Point>();
-        while (!nodes.isEmpty()) {
-            var next = nodes.minBy(d::get).getOrElseThrow(IllegalStateException::new);
-            nodes = nodes.remove(next);
-            grid.directNeighborPositions(next).forEach(neighbor -> {
-                var distanceThroughNext = d.get(next) + grid.get(neighbor);
-                if (d.get(neighbor) > distanceThroughNext) {
-                    d.set(neighbor, distanceThroughNext);
-                    predecessor.put(neighbor, next);
-                }
-            });
-        }
-
-        return path(predecessor, Point.ORIGIN, grid.maxPosition());
-    }
-
-    private List<Point> path(Map<Point, Point> predecessor, Point start, Point end) {
-        var current = end;
-        var path = new ArrayList<Point>();
-        while (!current.equals(start)) {
-            path.add(0, current);
-            current = predecessor.get(current);
-        }
-        return List.ofAll(path);
-    }
-
     @Override
     public Integer partOne(Input input) {
         var cave = toGrid(input);
-        var path = dijkstra(cave);
+        var dijkstra = new Dijkstra((point, neighbor) -> cave.get(neighbor));
+        var path = dijkstra.shortestPath(cave, Point.ORIGIN, cave.maxPosition());
         return path.remove(Point.ORIGIN).map(cave::get).sum().intValue();
     }
 
@@ -75,7 +42,8 @@ public class Day15 extends Solution<Integer> {
                             p.x() / initialCave.width() +
                             p.y() / initialCave.height(), 1, 9);
                 });
-        var path = dijkstra(hugeCave);
+        var dijkstra = new Dijkstra((point, neighbor) -> hugeCave.get(neighbor));
+        var path = dijkstra.shortestPath(hugeCave, Point.ORIGIN, hugeCave.maxPosition());
         return path.remove(Point.ORIGIN).map(hugeCave::get).sum().intValue();
     }
 
