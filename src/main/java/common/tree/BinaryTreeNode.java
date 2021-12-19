@@ -1,7 +1,5 @@
 package common.tree;
 
-import io.vavr.collection.List;
-
 public final class BinaryTreeNode<T> implements BinaryTree<T> {
 
     private BinaryTreeNode<T> parent;
@@ -23,14 +21,6 @@ public final class BinaryTreeNode<T> implements BinaryTree<T> {
         return right;
     }
 
-    public void setLeft(BinaryTree<T> left) {
-        this.left = left;
-    }
-
-    public void setRight(BinaryTree<T> right) {
-        this.right = right;
-    }
-
     public void replace(BinaryTree<T> node, BinaryTree<T> other) {
         other.setParent(this);
         if (left == node) {
@@ -40,12 +30,12 @@ public final class BinaryTreeNode<T> implements BinaryTree<T> {
         } else throw new IllegalStateException("Illegal replacement");
     }
 
-    public List<BinaryTree<T>> leftToRight() {
-        return List.of(left, right);
+    public boolean isLeft() {
+        return parent() != null && parent().left == this;
     }
 
-    public List<BinaryTree<T>> rightToLeft() {
-        return List.of(right, left);
+    public boolean isRight() {
+        return parent() != null && parent().right == this;
     }
 
     @Override
