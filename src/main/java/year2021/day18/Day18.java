@@ -7,6 +7,7 @@ import common.tree.BinaryTreeNode;
 import common.tree.BinaryTreeValue;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
+import io.vavr.collection.List;
 import io.vavr.control.Option;
 
 import java.util.ArrayDeque;
@@ -37,7 +38,8 @@ public class Day18 extends Solution<Integer> {
             if (node.left() instanceof BinaryTreeNode<Integer> left) nodes.push(Tuple.of(left, depth + 1));
         }
         if (explodedNode != null) {
-            explode(explodedNode, findClosest(explodedNode, BinaryTreeNode::left), findClosest(explodedNode, BinaryTreeNode::right));
+            var closest = findClosest(explodedNode);
+            explode(explodedNode, closest._1, closest._2);
         }
         return explodedNode != null;
     }
@@ -62,6 +64,34 @@ public class Day18 extends Solution<Integer> {
                     return true;
                 }).getOrElse(false);
     }
+
+    public Tuple2<Option<BinaryTreeValue<Integer>>, Option<BinaryTreeValue<Integer>>> findClosest(BinaryTreeNode<Integer> origin) {
+        var root = origin.root();
+        Deque<BinaryTreeNode<Integer>> nodes = new ArrayDeque<>();
+        var values = List.<BinaryTree<Integer>>empty();
+        nodes.push(root);
+        while (!nodes.isEmpty()) {
+            var node = nodes.pop();
+            values = values.append(node.left());
+            values = values.append(node);
+            values = values.append(node.right());
+
+            if (node.right() instanceof BinaryTreeNode<Integer> next) nodes.push(next);
+            if (node.left() instanceof BinaryTreeNode<Integer> next) nodes.push(next);
+        }
+
+        var originPosition = values.indexOf(origin);
+
+        return Tuple.of(
+                values.subSequence(0, originPosition - 2)
+                        .findLast(n -> n instanceof BinaryTreeValue<Integer>)
+                        .map(node -> (BinaryTreeValue<Integer>) node),
+                values.subSequence(originPosition + 2)
+                        .find(n1 -> n1 instanceof BinaryTreeValue<Integer>)
+                        .map(node -> (BinaryTreeValue<Integer>) node)
+        );
+    }
+
 
     public Option<BinaryTreeValue<Integer>> findClosest(BinaryTreeNode<Integer> origin,
                                                         Function<BinaryTreeNode<Integer>, BinaryTree<Integer>> direction) {
@@ -101,13 +131,17 @@ public class Day18 extends Solution<Integer> {
 
     public BinaryTree<Integer> add(BinaryTree<Integer> a, BinaryTree<Integer> b) {
         var result = new BinaryTreeNode<>(a, b);
+        reduce(result);
+        return result;
+    }
+
+    public void reduce(BinaryTreeNode<Integer> result) {
         while (true) {
             System.out.println(result);
             if (explode(result)) continue;
             if (split(result)) continue;
             break;
         }
-        return result;
     }
 
     public BinaryTree<Integer> parseSnailfish(String numbers) {

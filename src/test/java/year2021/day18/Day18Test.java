@@ -50,4 +50,16 @@ class Day18Test {
         assertThat(result.toString()).isEqualTo(expected);
     }
 
+    @ParameterizedTest
+    @CsvSource(delimiter = ';', value = {
+            "[[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]],[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]];[[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]]",
+    })
+    void reduce(String original, String result) {
+        var solution = new Day18();
+        var number = solution.parseSnailfish(original);
+        solution.reduce((BinaryTreeNode<Integer>) number);
+        assertThat(number.toString()).isEqualTo(result);
+    }
+
+
 }
