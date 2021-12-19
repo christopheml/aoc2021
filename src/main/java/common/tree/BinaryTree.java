@@ -12,4 +12,11 @@ public sealed interface BinaryTree<T> permits BinaryTreeNode, BinaryTreeValue {
         return (BinaryTreeNode<T>) current;
     }
 
+    default BinaryTree<T> copy() {
+        return switch (this) {
+            case BinaryTreeValue<T> leaf -> new BinaryTreeValue<>(leaf.value());
+            case BinaryTreeNode<T> node -> new BinaryTreeNode<>(node.left().copy(), node.right().copy());
+        };
+    }
+
 }

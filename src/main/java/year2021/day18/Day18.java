@@ -8,7 +8,6 @@ import common.tree.BinaryTreeValue;
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
-import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 
 import java.util.ArrayDeque;
@@ -31,7 +30,6 @@ public class Day18 extends Solution<Integer> {
             var depth = top._2;
 
             if (depth == 4) {
-                System.out.println("Explode " + node);
                 addLeft(node);
                 addRight(node);
                 node.parent().replace(node, new BinaryTreeValue<>(0));
@@ -80,7 +78,6 @@ public class Day18 extends Solution<Integer> {
                     var value = node.value();
                     var left = (int) (Math.floor(value / 2.0f));
                     var right = (int) (Math.ceil(value / 2.0f));
-                    System.out.println("Split " + value + " -> [" + left + "," + right + "]");
                     node.parent()
                             .replace(node, new BinaryTreeNode<>(
                                     new BinaryTreeValue<>(left),
@@ -91,18 +88,16 @@ public class Day18 extends Solution<Integer> {
 
 
     private Option<BinaryTreeValue<Integer>> findFirstValue(BinaryTreeNode<Integer> root, Predicate<Integer> predicate) {
-        Deque<BinaryTreeNode<Integer>> nodes = new ArrayDeque<>();
+        Deque<BinaryTree<Integer>> nodes = new ArrayDeque<>();
         nodes.add(root);
         while (!nodes.isEmpty()) {
             var node = nodes.pop();
-            if (node.left() instanceof BinaryTreeValue<Integer> value && predicate.test(value.value())) {
-                return Option.some(value);
+            if (node instanceof BinaryTreeValue<Integer> value) {
+                if (predicate.test(value.value())) return Option.some(value);
+            } else if (node instanceof BinaryTreeNode<Integer> next) {
+                nodes.push(next.right());
+                nodes.push(next.left());
             }
-            if (node.right() instanceof BinaryTreeValue<Integer> value && predicate.test(value.value())) {
-                return Option.some(value);
-            }
-            if (node.right() instanceof BinaryTreeNode<Integer> next) nodes.push(next);
-            if (node.left() instanceof BinaryTreeNode<Integer> next) nodes.push(next);
         }
         return Option.none();
     }
@@ -115,7 +110,6 @@ public class Day18 extends Solution<Integer> {
 
     public void reduce(BinaryTreeNode<Integer> result) {
         while (true) {
-            System.out.println(result);
             if (explode(result)) continue;
             if (split(result)) continue;
             break;
@@ -152,6 +146,12 @@ public class Day18 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        return null;
+        return List.ofAll(input.asList()).map(this::parseSnailfish).combinations(2)
+                .flatMap(pair -> List.of(
+                        Tuple.of(pair.head().copy(), pair.last().copy()),
+                        Tuple.of(pair.last().copy(), pair.head().copy())))
+                .map(pair -> pair.apply(this::add))
+                .map(this::magnitude)
+                .max().getOrElseThrow(IllegalStateException::new);
     }
 }

@@ -2,6 +2,7 @@ package year2021.day18;
 
 import common.input.Input;
 import common.tree.BinaryTreeNode;
+import io.vavr.Tuple;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,7 +11,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -89,10 +89,32 @@ class Day18Test {
         assertThat(solution.partOne(input)).isEqualTo(4140);
     }
 
+    @Test
+    void part2_magnitude() {
+        var solution = new Day18();
+        assertThat(solution.magnitude(
+                solution.add(
+                        solution.parseSnailfish("[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]"),
+                        solution.parseSnailfish("[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]")
+                )
+        )).isEqualTo(3993);
+    }
 
     @Test
-    void scratch() {
+    void part2_acceptance() {
+        var input = mock(Input.class);
+        when(input.asList()).thenReturn(List.of("[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]",
+                "[[[5,[2,8]],4],[5,[[9,9],0]]]",
+                "[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]",
+                "[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]",
+                "[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]",
+                "[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]",
+                "[[[[5,4],[7,7]],8],[[8,3],8]]",
+                "[[9,3],[[9,9],[6,[4,9]]]]",
+                "[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]",
+                "[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]"));
         var solution = new Day18();
-
+        assertThat(solution.partTwo(input)).isEqualTo(3993);
     }
+
 }
