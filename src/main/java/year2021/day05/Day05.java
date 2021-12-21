@@ -1,13 +1,12 @@
 package year2021.day05;
 
-import common.*;
+import common.Counter;
 import common.grid.InfiniteGrid;
 import common.grid.Point;
 import common.grid.Segment;
 import common.input.Input;
 import common.runners.Solution;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import static java.lang.Integer.parseInt;
@@ -32,10 +31,8 @@ public class Day05 extends Solution<Long> {
         var segments = input.asList(this::toSegment);
         var grid = new InfiniteGrid<>(Counter::new);
 
-        segments.stream()
-                .filter(keepSegment)
-                .map(Segment::getPoints)
-                .flatMap(List::stream)
+        segments.filter(keepSegment)
+                .flatMap(Segment::getPoints)
                 .forEach(point -> grid.get(point).inc());
 
         return grid.values().stream().filter(c -> c.get() > 1).count();

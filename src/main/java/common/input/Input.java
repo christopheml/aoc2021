@@ -1,6 +1,8 @@
 package common.input;
 
+import io.vavr.collection.List;
 import io.vavr.collection.Set;
+import io.vavr.collection.Stream;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,14 +10,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class Input implements StructuredInput {
 
-    private final io.vavr.collection.List<String> lines;
+    private final List<String> lines;
 
     public Input(int year, int day) {
         lines = readLines(String.format("inputs/%d/%02d.txt", year, day));
@@ -31,9 +31,9 @@ public class Input implements StructuredInput {
         }
     }
 
-    private io.vavr.collection.List<String> readLines(String filename) {
+    private List<String> readLines(String filename) {
         try (var reader = new BufferedReader(new InputStreamReader(openResource(filename), StandardCharsets.UTF_8))) {
-            return io.vavr.collection.Stream.ofAll(reader.lines()).toList();
+            return Stream.ofAll(reader.lines()).toList();
         } catch (IOException e) {
             throw new InvalidInputFile(filename, e);
         }
@@ -52,17 +52,17 @@ public class Input implements StructuredInput {
 
     @Override
     public Stream<String> asStreamOfLines() {
-        return lines.toJavaStream();
+        return lines.toStream();
     }
 
     @Override
     public List<String> asList() {
-        return lines.toJavaList();
+        return lines;
     }
 
     @Override
     public <T> List<T> asList(Function<String, T> transformation) {
-        return lines.map(transformation).toJavaList();
+        return lines.map(transformation);
     }
 
     @Override
@@ -80,14 +80,14 @@ public class Input implements StructuredInput {
         var currentGroup = new ArrayList<String>();
         for (var line : lines) {
             if ("".equals(line)) {
-                groups.add(new InputGroup(io.vavr.collection.List.ofAll(currentGroup)));
+                groups.add(new InputGroup(List.ofAll(currentGroup)));
                 currentGroup = new ArrayList<>();
             } else {
                 currentGroup.add(line);
             }
         }
-        if (!currentGroup.isEmpty()) groups.add(new InputGroup(io.vavr.collection.List.ofAll(currentGroup)));
-        return groups;
+        if (!currentGroup.isEmpty()) groups.add(new InputGroup(List.ofAll(currentGroup)));
+        return List.ofAll(groups);
     }
 
 }

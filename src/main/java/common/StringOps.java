@@ -1,17 +1,17 @@
 package common;
 
 import io.vavr.Tuple2;
+import io.vavr.collection.List;
+import io.vavr.collection.Stream;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class StringOps {
 
     public static <T> Stream<T> asStream(String text, String separator, Function<String, T> mapper) {
-        return Arrays.stream(text.split(separator)).map(mapper);
+        return Stream.ofAll(Arrays.stream(text.split(separator))).map(mapper);
     }
 
     public static <T> List<T> asList(String text, String separator, Function<String, T> mapper) {
@@ -23,7 +23,7 @@ public class StringOps {
     }
 
     public static List<Character> toChars(String text) {
-        return text.chars().mapToObj(c -> (char) c).toList();
+        return List.ofAll(text.chars().mapToObj(c -> (char) c));
     }
 
     private static boolean forAllChars(String text, Predicate<Character> predicate) {

@@ -2,9 +2,9 @@ package year2021.day14;
 
 import common.input.Input;
 import common.input.InputGroup;
+import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -12,9 +12,9 @@ import static org.mockito.Mockito.when;
 class Day14Test {
 
     @Test
-    void name() {
+    void part1_acceptance() {
         var input = mock(Input.class);
-        when(input.asGroups()).thenReturn(asList(
+        when(input.asGroups()).thenReturn(List.of(
                 InputGroup.of("NNCB"),
                 InputGroup.of("CH -> B",
                         "HH -> N",

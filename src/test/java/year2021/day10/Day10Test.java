@@ -1,9 +1,8 @@
 package year2021.day10;
 
 import common.input.Input;
+import io.vavr.collection.Stream;
 import org.junit.jupiter.api.Test;
-
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

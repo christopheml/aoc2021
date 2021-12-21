@@ -1,15 +1,14 @@
 package year2021.day03;
 
-import common.collections.ArrayOps;
 import common.BinaryString;
+import common.collections.ArrayOps;
 import common.input.Input;
 import common.runners.Solution;
+import io.vavr.collection.List;
+import io.vavr.collection.Map;
 
-import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Day03 extends Solution<Integer> {
 
@@ -36,25 +35,25 @@ public class Day03 extends Solution<Integer> {
     }
 
     private Map<Character, List<Character>> occurrences(List<BinaryString> numbers, int position) {
-        return numbers.stream().map(n -> n.getDigit(position)).collect(Collectors.groupingBy(Function.identity()));
+        return numbers.map(n -> n.getDigit(position)).groupBy(Function.identity());
     }
 
     private Character mostCommonDigit(List<BinaryString> numbers, int position) {
         var occurrences = occurrences(numbers, position);
-        if (occurrences.get('1').size() >= occurrences.get('0').size()) return '1';
+        if (occurrences.get('1').get().size() >= occurrences.get('0').get().size()) return '1';
         else return '0';
     }
 
     private Character leastCommonDigit(List<BinaryString> numbers, int position) {
         var occurrences = occurrences(numbers, position);
-        if (occurrences.get('1').size() < occurrences.get('0').size()) return '1';
+        if (occurrences.get('1').get().size() < occurrences.get('0').get().size()) return '1';
         else return '0';
     }
 
 
     public BinaryString findMatch(List<BinaryString> numbers, BiFunction<List<BinaryString>, Integer, Character> findBitCriteria, int position) {
         var bitCriteria = findBitCriteria.apply(numbers, position);
-        var filtered = numbers.stream().filter(n -> n.getDigit(position) == bitCriteria).toList();
+        var filtered = numbers.filter(n -> n.getDigit(position) == bitCriteria).toList();
         if (filtered.size() == 1) return filtered.get(0);
         return findMatch(filtered, findBitCriteria, position + 1);
     }

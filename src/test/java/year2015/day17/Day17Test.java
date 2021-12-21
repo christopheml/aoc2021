@@ -1,9 +1,8 @@
 package year2015.day17;
 
 import common.input.Input;
+import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

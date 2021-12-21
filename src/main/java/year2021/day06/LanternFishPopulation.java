@@ -1,7 +1,8 @@
 package year2021.day06;
 
+import io.vavr.collection.List;
+
 import java.util.Arrays;
-import java.util.List;
 
 public class LanternFishPopulation {
 

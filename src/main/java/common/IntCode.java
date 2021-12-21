@@ -1,13 +1,14 @@
 package common;
 
-import java.util.Collection;
+import io.vavr.collection.Traversable;
 
 public class IntCode {
 
     private final int[] memory;
 
-    public IntCode(Collection<Integer> values) {
-        memory = values.stream().mapToInt(Integer::intValue).toArray();
+    public IntCode(Traversable<Integer> values) {
+        memory = new int[values.size()];
+        values.forEachWithIndex((value, i) -> memory[i] = value);
     }
 
     public void patch(int position, int value) {

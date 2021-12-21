@@ -4,7 +4,6 @@ import common.grid.Point;
 import common.input.Input;
 import common.input.InputGroup;
 import common.runners.Solution;
-import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
 import io.vavr.collection.Set;
 

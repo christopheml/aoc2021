@@ -1,8 +1,8 @@
 package year2021.day04;
 
+import common.StringOps;
 import common.input.Input;
 import common.runners.Solution;
-import common.StringOps;
 
 import java.util.ArrayList;
 
@@ -17,14 +17,14 @@ public class Day04 extends Solution<Integer> {
 
         var draws = groups.get(0).asSeparatedIntegers();
 
-        var cards = groups.subList(1, groups.size()).stream().map(
+        var cards = groups.slice(1, groups.size()).map(
                 group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
-        ).map(BingoCard::new).toList();
+        ).map(BingoCard::new);
 
         for (var draw: draws) {
             cards.forEach(c -> c.draw(draw));
-            var winner = cards.stream().filter(BingoCard::isComplete).findFirst();
-            if (winner.isPresent()) {
+            var winner = cards.find(BingoCard::isComplete);
+            if (winner.isDefined()) {
                 return draw * winner.get().sumOfUnmarkedNumbers();
             }
         }
@@ -36,9 +36,9 @@ public class Day04 extends Solution<Integer> {
 
         var draws = groups.get(0).asSeparatedIntegers();
 
-        var cards = new ArrayList<>(groups.subList(1, groups.size()).stream().map(
+        var cards = new ArrayList<>(groups.slice(1, groups.size()).map(
                 group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
-        ).map(BingoCard::new).toList());
+        ).map(BingoCard::new).toJavaList());
 
         BingoCard lastWinner = null;
         int lastWinningDraw = 0;

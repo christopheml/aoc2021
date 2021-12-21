@@ -1,9 +1,8 @@
 package year2021.day11;
 
 import common.input.Input;
+import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

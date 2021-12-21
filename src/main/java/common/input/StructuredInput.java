@@ -1,11 +1,11 @@
 package common.input;
 
 import common.StringOps;
+import io.vavr.collection.List;
 import io.vavr.collection.Set;
+import io.vavr.collection.Stream;
 
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public interface StructuredInput {
 

@@ -1,7 +1,8 @@
 package year2021.day04;
 
+import io.vavr.collection.List;
+
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class BingoCard {

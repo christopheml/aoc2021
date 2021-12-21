@@ -25,14 +25,18 @@ public class Day01 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        var modules = input.asList(Integer::parseInt);
-        return modules.stream().mapToInt(this::directFuelWeight).sum();
+        return input.asList(Integer::parseInt)
+                .map(this::directFuelWeight)
+                .sum()
+                .intValue();
     }
 
     @Override
     public Integer partTwo(Input input) {
-        var modules = input.asList(Integer::parseInt);
-        return modules.stream().mapToInt(this::completeFuelWeight).sum();
+        return input.asList(Integer::parseInt)
+                .map(this::completeFuelWeight)
+                .sum()
+                .intValue();
     }
 
 }

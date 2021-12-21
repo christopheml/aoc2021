@@ -5,7 +5,6 @@ import common.input.InputGroup;
 import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -15,7 +14,7 @@ class Day13Test {
     @Test
     void part1_acceptance() {
         var input = mock(Input.class);
-        when(input.asGroups()).thenReturn(asList(
+        when(input.asGroups()).thenReturn(List.of(
                 InputGroup.of("6,10",
                         "0,14",
                         "9,10",

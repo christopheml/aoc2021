@@ -26,7 +26,7 @@ public class InfiniteGrid<T> {
         return values.entrySet();
     }
 
-    public Set<Point> keySet() {
+    public Set<Point> positions() {
         return values.keySet();
     }
 

@@ -3,8 +3,8 @@ package year2021.day07;
 import common.MathOps;
 import common.input.Input;
 import common.runners.Solution;
+import io.vavr.collection.List;
 
-import java.util.List;
 import java.util.function.Function;
 
 import static java.lang.Math.abs;
@@ -20,11 +20,11 @@ public class Day07 extends Solution<Integer> {
     }
 
     private int findLowestFuelCost(Input input, Function<List<Integer>, List<Integer>> targetCandidates, Function<Integer, Integer> distanceToFuelCost) {
-        var positions = input.asSeparatedIntegers().stream().sorted().toList();
-        return targetCandidates.apply(positions).stream().mapToInt(Integer::intValue)
-                .map(target -> positions.stream().mapToInt(p -> distanceToFuelCost.apply(abs(p - target))).sum())
+        var positions = input.asSeparatedIntegers().sorted();
+        return targetCandidates.apply(positions).map(Integer::intValue)
+                .map(target -> positions.map(p -> distanceToFuelCost.apply(abs(p - target))).sum().intValue())
                 .min()
-                .orElseThrow();
+                .getOrElseThrow(IllegalStateException::new);
     }
 
     @Override

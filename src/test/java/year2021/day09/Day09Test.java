@@ -1,9 +1,8 @@
 package year2021.day09;
 
 import common.input.Input;
+import io.vavr.collection.List;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -26,4 +25,5 @@ class Day09Test {
         var solution = new Day09();
         assertThat(solution.partTwo(input)).isEqualTo(1134);
     }
+
 }

@@ -1,10 +1,8 @@
 package year2021.day01;
 
 import common.input.Input;
-import common.collections.ListOps;
 import common.runners.Solution;
-
-import java.util.List;
+import io.vavr.collection.Seq;
 
 public class Day01 extends Solution<Long> {
 
@@ -12,12 +10,9 @@ public class Day01 extends Solution<Long> {
         super(2021, 1);
     }
 
-
-    private static long countIncreases(List<Integer> values) {
-        return ListOps.grouping(values, 2)
-                .stream()
-                .filter(l -> l.get(1) > l.get(0))
-                .count();
+    private static long countIncreases(Seq<Integer> values) {
+        return values.sliding(2)
+                .count(l -> l.get(1) > l.get(0));
     }
 
     public Long partOne(Input input) {
@@ -25,9 +20,9 @@ public class Day01 extends Solution<Long> {
     }
 
     public Long partTwo(Input input) {
-        var windows = ListOps.grouping(input.asList(Integer::valueOf), 3)
-                .stream()
-                .map(ListOps::sum)
+        var windows = input.asList(Integer::valueOf)
+                .sliding(3)
+                .map(l -> l.sum().intValue())
                 .toList();
         return countIncreases(windows);
     }

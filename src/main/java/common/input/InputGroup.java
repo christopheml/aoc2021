@@ -1,11 +1,11 @@
 package common.input;
 
+import io.vavr.collection.List;
 import io.vavr.collection.Set;
+import io.vavr.collection.Stream;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class InputGroup implements StructuredInput {
 
@@ -27,12 +27,12 @@ public class InputGroup implements StructuredInput {
 
     @Override
     public List<String> asList() {
-        return lines.toJavaList();
+        return lines;
     }
 
     @Override
     public <T> List<T> asList(Function<String, T> transformation) {
-        return lines.map(transformation).toJavaList();
+        return lines.map(transformation);
     }
 
     @Override
