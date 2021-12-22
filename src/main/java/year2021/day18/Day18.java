@@ -140,13 +140,13 @@ public class Day18 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        var result = List.ofAll(input.asList()).map(this::parseSnailfish).reduceLeft(this::add);
+        var result = input.asList().map(this::parseSnailfish).reduceLeft(this::add);
         return magnitude(result);
     }
 
     @Override
     public Integer partTwo(Input input) {
-        return List.ofAll(input.asList()).map(this::parseSnailfish).combinations(2)
+        return input.asList().map(this::parseSnailfish).combinations(2)
                 .flatMap(pair -> List.of(
                         Tuple.of(pair.head().copy(), pair.last().copy()),
                         Tuple.of(pair.last().copy(), pair.head().copy())))

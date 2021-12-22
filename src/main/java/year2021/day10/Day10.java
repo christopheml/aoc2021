@@ -8,7 +8,8 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.function.Function;
 
 public class Day10 extends Solution<Long> {
@@ -43,9 +44,9 @@ public class Day10 extends Solution<Long> {
         }
 
         private static final class IncompleteLine extends ParseResult {
-            public final Stack<Character> remaining;
+            public final Deque<Character> remaining;
 
-            public IncompleteLine(Stack<Character> remaining) {
+            public IncompleteLine(Deque<Character> remaining) {
                 this.remaining = remaining;
             }
         }
@@ -53,7 +54,7 @@ public class Day10 extends Solution<Long> {
 
     private ParseResult parse(String line) {
         var chars = StringOps.toChars(line);
-        var stack = new Stack<Character>();
+        var stack = new ArrayDeque<Character>();
         for (var c : chars) {
             if (matching.values().contains(c)) {
                 stack.push(c);
@@ -68,7 +69,7 @@ public class Day10 extends Solution<Long> {
 
     @Override
     public Long partOne(Input input) {
-        return List.ofAll(input.asStreamOfLines())
+        return input.asStreamOfLines()
                 .map(this::parse)
                 .filter(result -> result instanceof ParseResult.CorruptedLine)
                 .map(result -> ((ParseResult.CorruptedLine) result).invalidCharacter)
@@ -80,7 +81,7 @@ public class Day10 extends Solution<Long> {
 
     @Override
     public Long partTwo(Input input) {
-        var scores = List.ofAll(input.asStreamOfLines())
+        var scores = input.asStreamOfLines()
                 .map(this::parse)
                 .filter(result -> result instanceof ParseResult.IncompleteLine)
                 .map(result -> ((ParseResult.IncompleteLine) result).remaining)

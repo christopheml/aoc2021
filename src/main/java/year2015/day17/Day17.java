@@ -3,7 +3,6 @@ package year2015.day17;
 import common.input.Input;
 import common.runners.Solution;
 import io.vavr.Tuple2;
-import io.vavr.collection.List;
 import io.vavr.collection.Traversable;
 
 public class Day17 extends Solution<Integer> {
@@ -16,14 +15,14 @@ public class Day17 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        return List.ofAll(input.asList(Integer::parseInt))
+        return input.asList(Integer::parseInt)
                 .combinations()
                 .count(selection -> selection.sum().intValue() == target);
     }
 
     @Override
     public Integer partTwo(Input input) {
-        var smallestCombinations = List.ofAll(input.asList(Integer::parseInt))
+        var smallestCombinations = input.asList(Integer::parseInt)
                 .combinations()
                 .filter(selection -> selection.sum().intValue() == target)
                 .groupBy(Traversable::size)
@@ -31,4 +30,5 @@ public class Day17 extends Solution<Integer> {
                 .getOrElseThrow(IllegalStateException::new);
         return smallestCombinations._2.size();
     }
+
 }

@@ -6,7 +6,6 @@ import common.runners.Solution;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
-import io.vavr.collection.Stream;
 
 import java.util.function.Function;
 
@@ -76,7 +75,7 @@ public class Day12 extends Solution<Integer> {
     }
 
     private Caves caves(Input input) {
-        return new Caves(Stream.ofAll(input.asStreamOfLines()).map(s -> {
+        return new Caves(input.asStreamOfLines().map(s -> {
                     var parts = s.split("-");
                     return new Tuple2<>(parts[0], parts[1]);
                 })

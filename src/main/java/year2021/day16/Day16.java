@@ -3,7 +3,6 @@ package year2021.day16;
 import common.StringOps;
 import common.input.Input;
 import common.runners.Solution;
-import io.vavr.collection.List;
 import io.vavr.collection.Vector;
 import org.apache.commons.lang3.StringUtils;
 
@@ -68,7 +67,7 @@ public class Day16 extends Solution<Long> {
 
     @Override
     public Long partOne(Input input) {
-        var bits = new ConsumableString(List.ofAll(StringOps.toChars(input.asOneLine()))
+        var bits = new ConsumableString(StringOps.toChars(input.asOneLine())
                 .map(this::toBinary)
                 .mkString());
 
@@ -79,7 +78,7 @@ public class Day16 extends Solution<Long> {
 
     @Override
     public Long partTwo(Input input) {
-        var bits = new ConsumableString(List.ofAll(StringOps.toChars(input.asOneLine()))
+        var bits = new ConsumableString(StringOps.toChars(input.asOneLine())
                 .map(this::toBinary)
                 .mkString());
 

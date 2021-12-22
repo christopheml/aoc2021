@@ -18,7 +18,7 @@ public class Day15 extends Solution<Integer> {
 
     // FIXME Import this in Input
     private ImmutableGrid<Integer> toGrid(Input input) {
-        return ImmutableGrid.of(List.ofAll(input.asList())
+        return ImmutableGrid.of(input.asList()
                 .map(StringOps::toChars)
                 .map(List::ofAll)
                 .map(chars -> chars.map(CharOps::digitToInt)));

@@ -26,7 +26,7 @@ public class Day13 extends Solution<Integer> {
     }
 
     public List<Function<Set<Point>, Set<Point>>> toFolds(InputGroup input) {
-        return List.ofAll(input.asList())
+        return input.asList()
                 .map(line -> {
                     var parts = line.split("=");
                     var position = parseInt(parts[1]);

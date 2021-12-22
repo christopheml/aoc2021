@@ -16,7 +16,7 @@ public class Day11 extends Solution<Integer> {
     }
 
     public MutableGrid<Integer> toGrid(Input input) {
-        var values = List.ofAll(input.asList())
+        var values = input.asList()
                 .map(StringOps::toChars)
                 .map(List::ofAll)
                 .map(chars -> chars.map(CharOps::digitToInt));

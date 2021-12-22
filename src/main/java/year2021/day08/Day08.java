@@ -35,7 +35,7 @@ public class Day08 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        return List.ofAll(input.asStreamOfLines())
+        return input.asStreamOfLines()
                 .map(Entry::fromString)
                 .flatMap(Entry::digits)
                 .count(Digit::isTrivial);
@@ -43,7 +43,7 @@ public class Day08 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        return List.ofAll(input.asStreamOfLines())
+        return input.asStreamOfLines()
                 .map(Entry::fromString)
                 .map(this::solve)
                 .reduce(Integer::sum);

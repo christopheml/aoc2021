@@ -19,7 +19,7 @@ public class Day09 extends Solution<Integer> {
     }
 
     private Grid<Integer> toGrid(Input input) {
-        return new Grid<>(List.ofAll(input.asList())
+        return new Grid<>(input.asList()
                 .map(StringOps::toChars)
                 .map(List::ofAll)
                 .map(chars -> chars.map(CharOps::digitToInt)));

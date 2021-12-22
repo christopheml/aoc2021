@@ -3,7 +3,6 @@ package year2015.day07;
 import common.input.Input;
 import common.runners.Solution;
 import io.vavr.Tuple2;
-import io.vavr.collection.Stream;
 
 import java.util.function.Function;
 
@@ -37,7 +36,7 @@ public class Day07 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        var nodes = Stream.ofAll(input.asStreamOfLines())
+        var nodes = input.asStreamOfLines()
                 .map(this::parse)
                 .toMap(Function.identity());
         nodes.values().forEach(node -> node.bind(nodes));
@@ -47,7 +46,7 @@ public class Day07 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        var nodes = Stream.ofAll(input.asStreamOfLines())
+        var nodes = input.asStreamOfLines()
                 .map(this::parse)
                 .toMap(Function.identity());
 

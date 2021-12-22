@@ -29,8 +29,8 @@ public class Day02 extends Solution<Integer> {
     }
 
     private Stream<List<Integer>> presents(Input input) {
-        return Stream.ofAll(input.asStreamOfLines())
-                .map(line -> List.ofAll(StringOps.asList(line, "x", Integer::parseInt)))
+        return input.asStreamOfLines()
+                .map(line -> StringOps.asList(line, "x", Integer::parseInt))
                 .map(List::sorted);
     }
 

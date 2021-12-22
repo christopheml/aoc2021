@@ -43,7 +43,7 @@ public class Day14 extends Solution<Long> {
     }
 
     private Map<String, Tuple2<String, String>> createSubstitutions(InputGroup lines) {
-        return List.ofAll(lines.asList())
+        return lines.asStreamOfLines()
                 .map(StringOps::toTuple)
                 .toMap(t -> new Tuple2<>(t._1, new Tuple2<>(t._1.charAt(0) + t._2, t._2 + t._1.charAt(1))));
     }
