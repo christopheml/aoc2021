@@ -13,7 +13,7 @@ class Day08Test {
     @Test
     void part2_acceptance() {
         var input = mock(Input.class);
-        when(input.asStreamOfLines()).thenReturn(Stream.of("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"));
+        when(input.asStream()).thenReturn(Stream.of("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"));
         var solution = new Day08();
         assertThat(solution.partTwo(input)).isEqualTo(5353);
     }

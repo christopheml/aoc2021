@@ -75,7 +75,7 @@ public class Day12 extends Solution<Integer> {
     }
 
     private Caves caves(Input input) {
-        return new Caves(input.asStreamOfLines().map(s -> {
+        return new Caves(input.asStream().map(s -> {
                     var parts = s.split("-");
                     return new Tuple2<>(parts[0], parts[1]);
                 })

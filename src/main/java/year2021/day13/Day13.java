@@ -39,7 +39,7 @@ public class Day13 extends Solution<Integer> {
     @Override
     public Integer partOne(Input input) {
         var groups = input.asGroups();
-        var points = groups.get(0).asSet(Point::fromString);
+        var points = groups.get(0).asSet().map(Point::fromString);
         var folds = toFolds(groups.get(1));
 
         return folds.head().apply(points).size();
@@ -48,7 +48,7 @@ public class Day13 extends Solution<Integer> {
     @Override
     public Integer partTwo(Input input) {
         var groups = input.asGroups();
-        var points = groups.get(0).asSet(Point::fromString);
+        var points = groups.get(0).asSet().map(Point::fromString);
         var folds = toFolds(groups.get(1));
 
         for (var fold : folds) {

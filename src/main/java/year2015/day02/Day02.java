@@ -29,7 +29,7 @@ public class Day02 extends Solution<Integer> {
     }
 
     private Stream<List<Integer>> presents(Input input) {
-        return input.asStreamOfLines()
+        return input.asStream()
                 .map(line -> StringOps.asList(line, "x", Integer::parseInt))
                 .map(List::sorted);
     }

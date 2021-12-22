@@ -13,7 +13,7 @@ class Day10Test {
     @Test
     void part2_acceptance() {
         var input = mock(Input.class);
-        when(input.asStreamOfLines()).thenReturn(
+        when(input.asStream()).thenReturn(
                 Stream.of("[({(<(())[]>[[{[]{<()<>>",
                         "[(()[<>])]({[<{<<[]>>(",
                         "{([(<{}[<>[]}>{[]{[(<()>",

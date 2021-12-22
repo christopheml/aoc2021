@@ -16,11 +16,12 @@ public class Day01 extends Solution<Long> {
     }
 
     public Long partOne(Input input) {
-        return countIncreases(input.asList(Integer::valueOf));
+        return countIncreases(input.asList().map(Integer::valueOf));
     }
 
     public Long partTwo(Input input) {
-        var windows = input.asList(Integer::valueOf)
+        var windows = input.asList()
+                .map(Integer::valueOf)
                 .sliding(3)
                 .map(l -> l.sum().intValue())
                 .toList();

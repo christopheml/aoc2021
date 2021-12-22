@@ -36,7 +36,7 @@ public class Day07 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        var nodes = input.asStreamOfLines()
+        var nodes = input.asStream()
                 .map(this::parse)
                 .toMap(Function.identity());
         nodes.values().forEach(node -> node.bind(nodes));
@@ -46,7 +46,7 @@ public class Day07 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        var nodes = input.asStreamOfLines()
+        var nodes = input.asStream()
                 .map(this::parse)
                 .toMap(Function.identity());
 

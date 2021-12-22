@@ -13,7 +13,7 @@ class Day12Test {
     @Test
     void part1_simple_case() {
         var input = mock(Input.class);
-        when(input.asStreamOfLines()).thenReturn(Stream.of("start-A",
+        when(input.asStream()).thenReturn(Stream.of("start-A",
                 "start-b",
                 "A-c",
                 "A-b",
@@ -26,7 +26,7 @@ class Day12Test {
     @Test
     void part2_simple_case() {
         var input = mock(Input.class);
-        when(input.asStreamOfLines()).thenReturn(Stream.of("start-A",
+        when(input.asStream()).thenReturn(Stream.of("start-A",
                 "start-b",
                 "A-c",
                 "A-b",
@@ -39,7 +39,7 @@ class Day12Test {
     @Test
     void part2_bigger_case() {
         var input = mock(Input.class);
-        when(input.asStreamOfLines()).thenReturn(Stream.of("dc-end",
+        when(input.asStream()).thenReturn(Stream.of("dc-end",
                 "HN-start",
                 "start-kj",
                 "dc-start",

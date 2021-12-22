@@ -26,7 +26,7 @@ public class Day03 extends Solution<Integer> {
     }
 
     public Integer partOne(Input input) {
-        var inputs = input.asList(BinaryString::new);
+        var inputs = input.asList().map(BinaryString::new);
         var frequencies = collectFrequencies(inputs);
         var gamma = new BinaryString(frequencies, f -> f >= inputs.size() / 2);
         var epsilon = gamma.flip();
@@ -59,7 +59,7 @@ public class Day03 extends Solution<Integer> {
     }
 
     public Integer partTwo(Input input) {
-        var inputs = input.asList(BinaryString::new);
+        var inputs = input.asList().map(BinaryString::new);
 
         var oxygen = findMatch(inputs, this::mostCommonDigit, 0);
         var co2 = findMatch(inputs, this::leastCommonDigit, 0);

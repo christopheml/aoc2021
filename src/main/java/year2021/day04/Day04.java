@@ -18,7 +18,7 @@ public class Day04 extends Solution<Integer> {
         var draws = groups.get(0).asSeparatedIntegers();
 
         var cards = groups.slice(1, groups.size()).map(
-                group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
+                group -> group.asList().map(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
         ).map(BingoCard::new);
 
         for (var draw: draws) {
@@ -37,7 +37,7 @@ public class Day04 extends Solution<Integer> {
         var draws = groups.get(0).asSeparatedIntegers();
 
         var cards = new ArrayList<>(groups.slice(1, groups.size()).map(
-                group -> group.asList(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
+                group -> group.asList().map(line -> StringOps.asList(line.trim(), "\\s+", Integer::valueOf))
         ).map(BingoCard::new).toJavaList());
 
         BingoCard lastWinner = null;

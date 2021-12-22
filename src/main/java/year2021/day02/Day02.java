@@ -12,7 +12,7 @@ public class Day02 extends Solution<Integer> {
     }
 
     private List<Command> commands(Input input) {
-        return input.asList(Command::fromString);
+        return input.asList().map(Command::fromString);
     }
 
     public Integer partOne(Input input) {

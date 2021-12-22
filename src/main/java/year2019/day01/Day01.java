@@ -25,7 +25,8 @@ public class Day01 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        return input.asList(Integer::parseInt)
+        return input.asList()
+                .map(Integer::parseInt)
                 .map(this::directFuelWeight)
                 .sum()
                 .intValue();
@@ -33,7 +34,8 @@ public class Day01 extends Solution<Integer> {
 
     @Override
     public Integer partTwo(Input input) {
-        return input.asList(Integer::parseInt)
+        return input.asList()
+                .map(Integer::parseInt)
                 .map(this::completeFuelWeight)
                 .sum()
                 .intValue();

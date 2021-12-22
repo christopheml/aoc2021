@@ -28,7 +28,7 @@ public class Day05 extends Solution<Long> {
     }
 
     private long countIntersections(Input input, Predicate<Segment> keepSegment) {
-        var segments = input.asList(this::toSegment);
+        var segments = input.asList().map(this::toSegment);
         var grid = new InfiniteGrid<>(Counter::new);
 
         segments.filter(keepSegment)

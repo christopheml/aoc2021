@@ -5,7 +5,6 @@ import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 
 import java.util.Arrays;
-import java.util.function.Function;
 
 public class InputGroup implements StructuredInput {
 
@@ -21,8 +20,8 @@ public class InputGroup implements StructuredInput {
     }
 
     @Override
-    public Stream<String> asStreamOfLines() {
-        return null;
+    public Stream<String> asStream() {
+        return lines.toStream();
     }
 
     @Override
@@ -31,18 +30,8 @@ public class InputGroup implements StructuredInput {
     }
 
     @Override
-    public <T> List<T> asList(Function<String, T> transformation) {
-        return lines.map(transformation);
-    }
-
-    @Override
     public Set<String> asSet() {
         return lines.toSet();
-    }
-
-    @Override
-    public <T> Set<T> asSet(Function<String, T> transformation) {
-        return lines.map(transformation).toSet();
     }
 
     public static InputGroup of(String... lines) {

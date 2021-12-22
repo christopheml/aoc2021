@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class Input implements StructuredInput {
 
@@ -51,7 +50,7 @@ public class Input implements StructuredInput {
     }
 
     @Override
-    public Stream<String> asStreamOfLines() {
+    public Stream<String> asStream() {
         return lines.toStream();
     }
 
@@ -61,18 +60,8 @@ public class Input implements StructuredInput {
     }
 
     @Override
-    public <T> List<T> asList(Function<String, T> transformation) {
-        return lines.map(transformation);
-    }
-
-    @Override
     public Set<String> asSet() {
         return lines.toSet();
-    }
-
-    @Override
-    public <T> Set<T> asSet(Function<String, T> transformation) {
-        return lines.map(transformation).toSet();
     }
 
     public List<InputGroup> asGroups() {

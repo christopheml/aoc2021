@@ -69,7 +69,7 @@ public class Day10 extends Solution<Long> {
 
     @Override
     public Long partOne(Input input) {
-        return input.asStreamOfLines()
+        return input.asStream()
                 .map(this::parse)
                 .filter(result -> result instanceof ParseResult.CorruptedLine)
                 .map(result -> ((ParseResult.CorruptedLine) result).invalidCharacter)
@@ -81,7 +81,7 @@ public class Day10 extends Solution<Long> {
 
     @Override
     public Long partTwo(Input input) {
-        var scores = input.asStreamOfLines()
+        var scores = input.asStream()
                 .map(this::parse)
                 .filter(result -> result instanceof ParseResult.IncompleteLine)
                 .map(result -> ((ParseResult.IncompleteLine) result).remaining)

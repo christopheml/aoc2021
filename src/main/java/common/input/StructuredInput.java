@@ -13,15 +13,11 @@ public interface StructuredInput {
 
     String asOneLine();
 
-    Stream<String> asStreamOfLines();
+    Stream<String> asStream();
 
     List<String> asList();
 
-    <T> List<T> asList(Function<String, T> transformation);
-
     Set<String> asSet();
-
-    <T> Set<T> asSet(Function<String, T> transformation);
 
     default Integer asInteger() {
         return Integer.parseInt(asOneLine());
