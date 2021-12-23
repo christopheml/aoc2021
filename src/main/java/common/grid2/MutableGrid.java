@@ -17,6 +17,8 @@ public interface MutableGrid<T> extends ImmutableGrid<T> {
 
     void update(Point position, Function<T, T> operation);
 
+    void updateRegion(Point start, Point end, Function<T, T> operation);
+
     static <U> MutableGrid<U> of(List<List<U>> values, Class<U> clazz) {
         return new ArrayGrid<>(values, clazz);
     }

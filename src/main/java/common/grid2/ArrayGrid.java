@@ -49,6 +49,16 @@ public class ArrayGrid<T> extends BoundedGrid implements MutableGrid<T> {
     }
 
     @Override
+    public void updateRegion(Point start, Point end, Function<T, T> operation) {
+        for (int y = start.y(); y <= end.y(); y++) {
+            for (int x = start.x(); x <= end.x(); x++) {
+                var i = index(x, y);
+                elements[i] = operation.apply(elements[i]);
+            }
+        }
+    }
+
+    @Override
     public void set(Point position, T value) {
         elements[index(position)] = value;
     }
@@ -59,7 +69,11 @@ public class ArrayGrid<T> extends BoundedGrid implements MutableGrid<T> {
     }
 
     private int index(Point position) {
-        return position.y() * width + position.x();
+        return index(position.x(), position.y());
+    }
+
+    private int index(int x, int y) {
+        return y * width + x;
     }
 
     @Override
