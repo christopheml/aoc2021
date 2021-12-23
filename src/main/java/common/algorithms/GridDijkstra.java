@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class Dijkstra {
+public class GridDijkstra {
 
     private final BiFunction<Point, Point, Integer> costFunction;
 
-    public Dijkstra(BiFunction<Point, Point, Integer> costFunction) {
+    public GridDijkstra(BiFunction<Point, Point, Integer> costFunction) {
         this.costFunction = costFunction;
     }
 

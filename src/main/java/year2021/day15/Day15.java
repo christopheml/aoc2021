@@ -3,7 +3,7 @@ package year2021.day15;
 import common.CharOps;
 import common.MathOps;
 import common.StringOps;
-import common.algorithms.Dijkstra;
+import common.algorithms.GridDijkstra;
 import common.grid.Point;
 import common.grid2.ImmutableGrid;
 import common.input.Input;
@@ -27,7 +27,7 @@ public class Day15 extends Solution<Integer> {
     @Override
     public Integer partOne(Input input) {
         var cave = toGrid(input);
-        var dijkstra = new Dijkstra((point, neighbor) -> cave.get(neighbor));
+        var dijkstra = new GridDijkstra((point, neighbor) -> cave.get(neighbor));
         var path = dijkstra.shortestPath(cave, Point.ORIGIN, cave.maxPosition());
         return path.remove(Point.ORIGIN).map(cave::get).sum().intValue();
     }
@@ -42,7 +42,7 @@ public class Day15 extends Solution<Integer> {
                             p.x() / initialCave.width() +
                             p.y() / initialCave.height(), 1, 9);
                 });
-        var dijkstra = new Dijkstra((point, neighbor) -> hugeCave.get(neighbor));
+        var dijkstra = new GridDijkstra((point, neighbor) -> hugeCave.get(neighbor));
         var path = dijkstra.shortestPath(hugeCave, Point.ORIGIN, hugeCave.maxPosition());
         return path.remove(Point.ORIGIN).map(hugeCave::get).sum().intValue();
     }
