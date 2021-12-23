@@ -60,14 +60,14 @@ public class Day06 extends Solution<Integer> {
 
     @Override
     public Integer partOne(Input input) {
-        var grid = MutableGrid.compute(1000, 1000, (p) -> 0, Integer.class);
+        var grid = MutableGrid.init(1000, 1000, 0, Integer.class);
         turnLightsOn(grid, input, this::updateOnOff);
         return grid.count(value -> value > 0);
     }
 
     @Override
     public Integer partTwo(Input input) {
-        var grid = MutableGrid.compute(1000, 1000, (p) -> 0, Integer.class);
+        var grid = MutableGrid.init(1000, 1000, 0, Integer.class);
         turnLightsOn(grid, input, this::updateRange);
         return grid.elements().sum().intValue();
     }

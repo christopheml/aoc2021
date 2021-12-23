@@ -6,7 +6,8 @@ import io.vavr.collection.Stream;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.function.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class ArrayGrid<T> extends BoundedGrid implements MutableGrid<T> {
 
@@ -16,6 +17,12 @@ public class ArrayGrid<T> extends BoundedGrid implements MutableGrid<T> {
         super(values.head().size(), values.size());
         elements = (T[]) Array.newInstance(clazz, width * height);
         updateAll((position, val) -> values.get(position.y()).get(position.x()));
+    }
+
+    protected ArrayGrid(int width, int height, T defaultValue, Class<T> clazz) {
+        super(width, height);
+        elements = (T[]) Array.newInstance(clazz, width * height);
+        Arrays.fill(elements, defaultValue);
     }
 
     @Override
