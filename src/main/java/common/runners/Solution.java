@@ -43,7 +43,7 @@ public abstract class Solution<T> {
     private String formatTime(long millis) {
         if (millis < 1000) return String.format("%dms", millis);
         var seconds = millis / 1000;
-        if (seconds < 60) return String.format("%ds", seconds);
+        if (seconds < 60) return String.format("%d,%ds", seconds, millis % 1000 / 100);
         return String.format("%dm%ds", seconds / 60, seconds % 60);
     }
 
